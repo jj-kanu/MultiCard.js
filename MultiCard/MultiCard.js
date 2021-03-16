@@ -12,9 +12,10 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
     this.up = null;
     this.down = null; 
 
-    const card = document.createElement('MultiCard')
+    this.card = document.createElement('MultiCard')
+    const card = this.card
     card.style = `position:absolute; width: ${this.width}; height: ${this.height}; margin: 10px; 
-                background-color: pink; border: 1px solid lightgray; z-index: ${this.level};
+                background-color: pink; border: 1px solid lightgray; z-index: initial;
                 transition:left .33s ease;`
 
     if (this.level==10){
@@ -22,7 +23,7 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
         document.body.appendChild(card)
         log("appended")
     } else {
-        return (card)
+        return (this)
     } 
 }
 
@@ -31,9 +32,12 @@ MultiCard.prototype = {
 
     makeLeft: function (subWidth = "400px") {
         const leftCard = document.createElement('leftCard')
-        this.left = new MultiCard(subWidth, this.height, null, null, this.level - 1);
-        leftCard.append(this.left)
+        this.left = new MultiCard(subWidth, this.height, null, null, -1);
+        log(this.left)
+        leftCard.append(this.left.card)
         document.querySelector('multicard').appendChild(leftCard)
+        this.left.right = this;
+        log(this.left.right)
         // card.append(this.left)
     }
 }
