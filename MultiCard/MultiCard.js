@@ -1,6 +1,6 @@
 "use strict";
 
-function MultiCard(width = "300px", height = "150px", title = "Title", content = "ass ass", level = 1) {
+function MultiCard(width = "300px", height = "150px", title = "Title", content = "ass ass", level = 0) {
 
     this.width = width;
     this.height = height;
@@ -15,7 +15,7 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
     this.card = document.createElement('MultiCard')
     const card = this.card
     
-    if (this.level==1){
+    if (this.level==0){
         card.style = `position:relative; width: ${this.width}; height: ${this.height}; 
                 background-color: pink; border: 1px solid lightgray;
                 transition: all 2s ease 0s; display: inline-block;`
@@ -32,61 +32,61 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 MultiCard.prototype = {
 
 
-    makeLeft: function (subWidth = "400px") {
+    makeLeft: function (subWidth = "300px") {
         const leftCard = document.createElement('leftCard')
-        this.left = new MultiCard(subWidth, this.height, null, null, -1);
+        this.left = new MultiCard(subWidth, this.height, null, null, this.level-1);
         log(this.left)
         this.left.card.style.zIndex = this.left.level;
         this.left.card.style.right = "0px";
         leftCard.append(this.left.card)
-        document.querySelector('multicard').appendChild(leftCard)
+        this.card.appendChild(leftCard)
         this.left.right = this;
         log(this.left.right)
         // card.append(this.left)
     },
 
-    makeRight: function (subWidth = "400px") {
+    makeRight: function (subWidth = "300px") {
         const rightCard = document.createElement('rightCard')
-        this.right = new MultiCard(subWidth, this.height, null, null, -1);
+        this.right = new MultiCard(subWidth, this.height, null, null, this.level-1);
         this.right.card.style.zIndex = this.right.level;
         this.right.card.style.left = "0px";
         rightCard.append(this.right.card)
-        document.querySelector('multicard').appendChild(rightCard)
+        this.card.appendChild(rightCard)
         this.right.left = this;
         // card.append(this.left)
     },
 
-    makeUp: function (subHeight = "200px") {
+    makeUp: function (subHeight = "150px") {
         const upCard = document.createElement('upCard')
-        this.up = new MultiCard(this.width, subHeight, null, null, -1);
+        this.up = new MultiCard(this.width, subHeight, null, null, this.level-1);
         this.up.card.style.zIndex = this.up.level;
         this.up.card.style.bottom = "0px";
         upCard.append(this.up.card)
-        document.querySelector('multicard').appendChild(upCard)
+        this.card.appendChild(upCard)
         this.up.down = this;
     },
 
-    makeDown: function (subHeight = "200px") {
+    makeDown: function (subHeight = "150px") {
         const downCard = document.createElement('downCard')
-        this.down = new MultiCard(this.width, subHeight, null, null, -1);
+        this.down = new MultiCard(this.width, subHeight, null, null, this.level-1);
         this.down.card.style.zIndex = this.down.level;
         this.down.card.style.top = "0px";
         downCard.append(this.down.card)
-        document.querySelector('multicard').appendChild(downCard)
+        this.card.appendChild(downCard)
         this.down.up = this;
     },
 
     slideLeft: function () {
-        this.left.card.style.right = '200px'
+        this.left.card.style.right = this.width
     },
     slideRight: function () {
-        this.right.card.style.left = '200px'
+        this.right.card.style.left = this.width
     },
     slideUp: function () {
-        this.up.card.style.bottom = '300px'
+        this.up.card.style.bottom = this.height
     },
     slideDown: function () {
-        this.down.card.style.top = '200px'
+        this.down.card.style.top = this.height
     },
 }
 // "use strict";
@@ -140,7 +140,7 @@ MultiCard.prototype = {
 //     // Make Sub-Cards
 //     _self.makeLeft = function (width = _self.width) {
 //         // const leftCard = document.createElement('leftCard')
-//         _self.left = MultiCard (width, _self.height, null, null, level=_self.level-1);
+//         _self.left = MultiCard (width, _self.height, null, null, level=_self.levelthis.level-1);
 //         card.append(_self.left)
 //         // leftCard.append(_self.left)
 //         _self.left.right = _self;
