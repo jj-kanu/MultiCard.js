@@ -14,15 +14,17 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 
     this.card = document.createElement('MultiCard')
     const card = this.card
-    card.style = `position:absolute; width: ${this.width}; height: ${this.height}; 
-                background-color: pink; border: 1px solid lightgray;
-                transition: all ease-in-out 1000ms;`
-
+    
     if (this.level==1){
-        log(this.level)
-        document.body.appendChild(card)
-        log("appended")
+        card.style = `position:relative; width: ${this.width}; height: ${this.height}; 
+                background-color: pink; border: 1px solid lightgray;
+                transition: all 2s ease 0s; display: inline-block;`
+        
+        document.querySelector('#testDiv').appendChild(card)
     } else {
+        card.style = `position:absolute; width: ${this.width}; height: ${this.height}; 
+                background-color: lightblue; border: 1px solid lightgray;
+                transition: all 2s ease 0s; display: inline-block;` 
         return (this)
     } 
 }
@@ -35,6 +37,7 @@ MultiCard.prototype = {
         this.left = new MultiCard(subWidth, this.height, null, null, -1);
         log(this.left)
         this.left.card.style.zIndex = this.left.level;
+        this.left.card.style.right = "0px";
         leftCard.append(this.left.card)
         document.querySelector('multicard').appendChild(leftCard)
         this.left.right = this;
@@ -46,6 +49,7 @@ MultiCard.prototype = {
         const rightCard = document.createElement('rightCard')
         this.right = new MultiCard(subWidth, this.height, null, null, -1);
         this.right.card.style.zIndex = this.right.level;
+        this.right.card.style.left = "0px";
         rightCard.append(this.right.card)
         document.querySelector('multicard').appendChild(rightCard)
         this.right.left = this;
@@ -56,6 +60,7 @@ MultiCard.prototype = {
         const upCard = document.createElement('upCard')
         this.up = new MultiCard(this.width, subHeight, null, null, -1);
         this.up.card.style.zIndex = this.up.level;
+        this.up.card.style.bottom = "0px";
         upCard.append(this.up.card)
         document.querySelector('multicard').appendChild(upCard)
         this.up.down = this;
@@ -65,22 +70,23 @@ MultiCard.prototype = {
         const downCard = document.createElement('downCard')
         this.down = new MultiCard(this.width, subHeight, null, null, -1);
         this.down.card.style.zIndex = this.down.level;
+        this.down.card.style.top = "0px";
         downCard.append(this.down.card)
         document.querySelector('multicard').appendChild(downCard)
         this.down.up = this;
     },
 
     slideLeft: function () {
-        this.left.card.style.left = '100px'
+        this.left.card.style.right = '200px'
     },
     slideRight: function () {
-        this.right.card.style.right = '300px'
+        this.right.card.style.left = '200px'
     },
     slideUp: function () {
-        this.up.card.style.up = '300px'
+        this.up.card.style.bottom = '300px'
     },
     slideDown: function () {
-        this.down.card.style.down = '300px'
+        this.down.card.style.top = '200px'
     },
 }
 // "use strict";
