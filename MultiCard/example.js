@@ -4,8 +4,19 @@ const e = $('#testDiv')
 log(e.text())
 log("my ass")
 
-const cg = new MultiCard();
-cg.makeRight();
+const tempContent = document.createElement('div')
+// const upB = document.createElement('button')
+// const downB = document.createElement('button')
+// const rightB = document.createElement('button')
+// const leftB = document.createElement('button')
+// tempContent.appendChild(upB)
+// tempContent.appendChild(downB)
+// tempContent.appendChild(rightB)
+// tempContent.appendChild(leftB)
+
+
+const cg = new MultiCard(undefined, undefined, undefined, tempContent);
+cg.makeRight("150px","test");
 cg.makeLeft();
 cg.makeDown();
 log(cg.down)
