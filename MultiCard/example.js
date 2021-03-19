@@ -16,7 +16,7 @@ tempContent.innerHTML = "<button>up</button><button>down</button><button onClick
 // tempContent.appendChild(rightB)
 // tempContent.appendChild(leftB)
 
-
+// Test MultiCard
 const cg = new MultiCard(undefined, undefined, undefined, tempContent);
 log(cg)
 document.querySelector('#testDiv').appendChild(cg.card)
@@ -34,3 +34,7 @@ setTimeout(function() {cg.down.slideDown(), log("sliddown")}, 4000);
 log(cg.down.down)
 setTimeout(function() {cg.down.down.slideRight()}, 6000);
 // cg.left.height = "300px"
+
+// Business Card
+const businessCard = new MultiCard(undefined, undefined, undefined);
+document.querySelector('#businessCard').appendChild(businessCard.card)
