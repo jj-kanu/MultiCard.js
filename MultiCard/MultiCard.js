@@ -38,6 +38,10 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
         // document.querySelector('#testDiv').appendChild(card)
         // return (this.card)
     } else {
+
+        //Checks if subcard is in or out
+        this.out = false;
+
         this.card = document.createElement('SubCard')
         const card = this.card
 
@@ -66,7 +70,7 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 MultiCard.prototype = {
 
     // TODO
-    // Move sub cards to be at the edge of the cards opposed to opposite edge
+    // Move sub cards to be at the edge of the cards opposed to opposite edge (Edge cases don't quite work yet)
     // SLIDE BACK IN
     // Error check if this.direction exists before making card (ie this.right cant make this.left)
 
@@ -177,9 +181,18 @@ MultiCard.prototype = {
     },
 
     slideLeft: function () {
+        // If the first sublevel, only check current multicard, else queryselect parent (current mulitcard)
         if (this.level==0){
-            for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                subCard.style.left = +subCard.style.left.slice(0,-2) - +subCard.style.width.slice(0,-2) -2 + "px";
+            if(!this.left.out){
+                for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
+                    subCard.style.left = +subCard.style.left.slice(0,-2) - +subCard.style.width.slice(0,-2) + "px";
+                }
+                this.left.out = true;
+            } else {
+                for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
+                    subCard.style.left = +subCard.style.left.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
+                }
+                this.left.out = false;
             }
         } else {
             for (let subCard of this.card.parentElement.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
