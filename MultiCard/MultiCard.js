@@ -30,13 +30,12 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
         }
     
         //Card Content
-        const cardContent = document.createElement('div')
+        const cardContent = document.createElement('div');
+        cardContent.className = "cardContent";
         cardContent.style = `width: 100%; height: ${this.height};`
         card.appendChild(cardContent)
         cardContent.append(content)
         
-        // document.querySelector('#testDiv').appendChild(card)
-        // return (this.card)
     } else {
 
         //Checks if subcard is in or out
@@ -71,6 +70,7 @@ MultiCard.prototype = {
 
     // TODO
     // Move sub cards to be at the edge of the cards opposed to opposite edge (Edge cases don't quite work yet)
+    // SLIDE BACK (code there, might be inconsistencies with number of pixels in certain directions)
     // Error check if this.direction exists before making card (ie this.right cant make this.left)
 
     makeLeft: function (subWidth = "300px", title = null) {
@@ -129,7 +129,7 @@ MultiCard.prototype = {
         if (this.level==0){
             const up = document.createElement('up')
             this.up = new MultiCard(this.width, subHeight, title, null, this.level-1);
-            this.down.card.className = "up";
+            this.up.card.className = "up";
             this.up.card.style.zIndex = this.up.level;
             this.up.card.style.top = "0px";
             this.up.card.style.left = "0px";
@@ -179,6 +179,7 @@ MultiCard.prototype = {
 
     },
 
+    // Can shorten this to another function that just checks direction
     slideLeft: function () {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.left.out){
