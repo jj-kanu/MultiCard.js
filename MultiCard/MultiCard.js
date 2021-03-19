@@ -71,7 +71,6 @@ MultiCard.prototype = {
 
     // TODO
     // Move sub cards to be at the edge of the cards opposed to opposite edge (Edge cases don't quite work yet)
-    // SLIDE BACK IN
     // Error check if this.direction exists before making card (ie this.right cant make this.left)
 
     makeLeft: function (subWidth = "300px", title = null) {
@@ -181,59 +180,60 @@ MultiCard.prototype = {
     },
 
     slideLeft: function () {
-        // If the first sublevel, only check current multicard, else queryselect parent (current mulitcard)
-        if (this.level==0){
-            if(!this.left.out){
-                for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                    subCard.style.left = +subCard.style.left.slice(0,-2) - +subCard.style.width.slice(0,-2) + "px";
-                }
-                this.left.out = true;
-            } else {
-                for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                    subCard.style.left = +subCard.style.left.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
-                }
-                this.left.out = false;
+        const mainOrSub = this.level == 0? this.card: this.card.parentElement
+        if(!this.left.out){
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
+                subCard.style.left = +subCard.style.left.slice(0,-2) - +subCard.style.width.slice(0,-2) + "px";
             }
+            this.left.out = true;
         } else {
-            for (let subCard of this.card.parentElement.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                subCard.style.left = +subCard.style.left.slice(0,-2) - +subCard.style.width.slice(0,-2) -2 + "px";
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
+                subCard.style.left = +subCard.style.left.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
             }
+            this.left.out = false;
         }
     },
     slideRight: function () {
-        // Move all subcards with same class prefix as current card's down's classname
-        if (this.level==0){
-            for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
+        const mainOrSub = this.level == 0? this.card: this.card.parentElement
+        if(!this.right.out){
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
                 subCard.style.right = +subCard.style.right.slice(0,-2) - +subCard.style.width.slice(0,-2) - 2 + "px";
             }
+            this.right.out = true;
         } else {
-            for (let subCard of this.card.parentElement.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
-                // {subCard.style.right == ""? subCard.style.right="0px": null}
-                // log(subCard.style.right)
-                subCard.style.right = +subCard.style.right.slice(0,-2) - +subCard.style.width.slice(0,-2) - 2 + "px";
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
+                subCard.style.right = +subCard.style.right.slice(0,-2) + +subCard.style.width.slice(0,-2) - 2 + "px";
             }
+            this.right.out = false;
         }
     },
     slideUp: function () {
-        if (this.level==0){
-            for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
+        const mainOrSub = this.level == 0? this.card: this.card.parentElement
+        if(!this.up.out){
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
                 subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) - 2 + "px";
             }
+            this.up.out = true;
         } else {
-            for (let subCard of this.card.parentElement.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
-                subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) - 2 + "px";
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
+                subCard.style.top= +subCard.style.top.slice(0,-2) + +subCard.style.height.slice(0,-2) - 2 + "px";
             }
+            this.up.out = false;
         }
+        
     },
     slideDown: function () {
-        if (this.level==0){
-            for (let subCard of this.card.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
+        const mainOrSub = this.level == 0? this.card: this.card.parentElement
+        if(!this.down.out){
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
                 subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) - 2 + "px";
             }
+            this.down.out = true;
         } else {
-            for (let subCard of this.card.parentElement.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
-                subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) - 2 + "px";
+            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
+                subCard.style.bottom = +subCard.style.bottom.slice(0,-2) + +subCard.style.height.slice(0,-2) - 2 + "px";
             }
+            this.down.out = false;
         }
     },
 }
