@@ -209,34 +209,58 @@ snCard.down.card.querySelector('.cardContent').appendChild(document.createTextNo
 // Crazy Card
 const startPoint = new MultiCard(undefined, undefined, null, undefined)
 document.querySelector('#crazyCard').appendChild(startPoint.card)
+const crazyButton = document.createElement('button')
+crazyButton.appendChild(document.createTextNode("Click Me!"))
+crazyButton.style.marginLeft = "37%"
+crazyButton.style.marginTop = "23%"
+startPoint.card.querySelector('.cardContent').appendChild(crazyButton)
 
+startPoint.card.style.backgroundColor = "#3399ff"
 startPoint.makeDown()
+startPoint.down.card.style.backgroundColor = "#66ccff"
 startPoint.down.makeDown()
+startPoint.down.down.card.style.backgroundColor = "#ccffff"
 startPoint.down.down.makeRight()
+startPoint.down.down.right.card.style.backgroundColor = "#ccffff"
 startPoint.down.down.makeLeft()
+startPoint.down.down.left.card.style.backgroundColor = "#ccffff"
 startPoint.down.down.right.makeRight()
+startPoint.down.down.right.right.card.style.backgroundColor = "#ccffff"
 startPoint.down.down.left.makeLeft()
+startPoint.down.down.left.left.card.style.backgroundColor = "#ccffff"
 startPoint.down.down.right.right.makeUp()
+startPoint.down.down.right.right.up.card.style.backgroundColor = "#66ccff"
 startPoint.down.down.left.left.makeUp()
+startPoint.down.down.left.left.up.card.style.backgroundColor = "#66ccff"
 startPoint.down.down.right.right.up.makeUp()
+startPoint.down.down.right.right.up.up.card.style.backgroundColor = "#3399ff"
 startPoint.down.down.left.left.up.makeUp()
+startPoint.down.down.left.left.up.up.card.style.backgroundColor = "#3399ff"
 
+crazyButton.addEventListener("click", function( event ) {
+    event.target.disabled = true;
+    // Slide Out
+    startPoint.slideDown();
+    setTimeout(function() {startPoint.down.slideDown()}, 1000);
+    setTimeout(function() {startPoint.down.down.slideRight()}, 2000);
+    setTimeout(function() {startPoint.down.down.slideLeft()}, 2000);
+    setTimeout(function() {startPoint.down.down.right.slideRight()}, 3000);
+    setTimeout(function() {startPoint.down.down.left.slideLeft()}, 3000);
+    setTimeout(function() {startPoint.down.down.right.right.slideUp()}, 4000);
+    setTimeout(function() {startPoint.down.down.left.left.slideUp()}, 4000);
+    setTimeout(function() {startPoint.down.down.right.right.up.slideUp()}, 5000);
+    setTimeout(function() {startPoint.down.down.left.left.up.slideUp()}, 5000);
+    // AND REVERSE
+    setTimeout(function() {startPoint.down.down.right.right.up.slideUp()}, 6000);
+    setTimeout(function() {startPoint.down.down.left.left.up.slideUp()}, 6000);
+    setTimeout(function() {startPoint.down.down.right.right.slideUp()}, 7000);
+    setTimeout(function() {startPoint.down.down.left.left.slideUp()}, 7000);
+    setTimeout(function() {startPoint.down.down.right.slideRight()}, 8000);
+    setTimeout(function() {startPoint.down.down.left.slideLeft()}, 8000);
+    setTimeout(function() {startPoint.down.down.slideRight()}, 9000);
+    setTimeout(function() {startPoint.down.down.slideLeft()}, 9000);
+    setTimeout(function() {startPoint.down.slideDown()}, 10000);
+    setTimeout(function() {startPoint.slideDown()}, 11000);
 
-// Slide Out
-setTimeout(function() {startPoint.slideDown()}, 1000);
-setTimeout(function() {startPoint.down.slideDown()}, 2000);
-setTimeout(function() {startPoint.down.down.slideRight()}, 3000);
-setTimeout(function() {startPoint.down.down.slideLeft()}, 3000);
-setTimeout(function() {startPoint.down.down.right.slideRight()}, 4000);
-setTimeout(function() {startPoint.down.down.left.slideLeft()}, 4000);
-setTimeout(function() {startPoint.down.down.right.right.slideUp()}, 5000);
-setTimeout(function() {startPoint.down.down.left.left.slideUp()}, 5000);
-setTimeout(function() {startPoint.down.down.right.right.up.slideUp()}, 6000);
-setTimeout(function() {startPoint.down.down.left.left.up.slideUp()}, 6000);
-// AND REVERSE
-setTimeout(function() {startPoint.down.down.right.right.up.slideUp()}, 7000);
-setTimeout(function() {startPoint.down.down.left.left.up.slideUp()}, 7000);
-setTimeout(function() {startPoint.down.down.right.right.slideUp()}, 8000);
-setTimeout(function() {startPoint.down.down.left.left.slideUp()}, 8000);
-setTimeout(function() {startPoint.down.down.right.slideRight()}, 9000);
-setTimeout(function() {startPoint.down.down.left.slideLeft()}, 9000);
+    setTimeout(function() {event.target.disabled = false;}, 12000);
+}, false);
