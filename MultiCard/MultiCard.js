@@ -214,8 +214,14 @@ MultiCard.prototype = {
     slideUp: function () {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.up.out){
+            // CHECK HERE IF DOWN IS NEGATIVE
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
-                subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
+                log(+subCard.style.bottom.slice(0,-2))
+                if(+subCard.style.bottom.slice(0,-2) < 0){
+                    subCard.style.bottom= +subCard.style.bottom.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
+                } else {
+                    subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
+                }
             }
             this.up.out = true;
         } else {
