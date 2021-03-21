@@ -205,6 +205,40 @@ snCard.down.card.querySelector('.cardContent').appendChild(document.createTextNo
 
 
 // Quiz Card (hint on right, answer on bottom)
+const quizCard = new MultiCard("300px","200px","Some Trivia Questions", "What two cities in Japan were consecutive capitals?")
+document.querySelector('#quizCard').appendChild(quizCard.card)
+quizCard.card.style.backgroundColor = "#66ff66"
+const hint = document.createElement('button')
+hint.appendChild(document.createTextNode("Gimme A Hint!"))
+const answer = document.createElement('button')
+answer.appendChild(document.createTextNode("Just Tell Me!"))
+quizCard.card.querySelector('.cardContent').style.fontSize = "20px"
+quizCard.card.querySelector('.cardContent').style.paddingTop = "30px"
+quizCard.card.querySelector('.cardContent').style.textAlign = "center"
+quizCard.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+quizCard.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+quizCard.card.querySelector('.cardContent').appendChild(hint)
+quizCard.card.querySelector('.cardContent').appendChild(answer)
+
+quizCard.makeRight("150px")
+quizCard.right.card.style.backgroundColor = "#99ff99"
+quizCard.makeDown("50px")
+quizCard.down.card.style.backgroundColor = "#99ff99"
+
+quizCard.right.card.querySelector('.cardContent').style.paddingLeft = "10px"  
+quizCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("The cities are anagrams for each other in english."))
+quizCard.right.card.querySelector('.cardContent').style.paddingTop = "30px"
+
+quizCard.down.card.querySelector('.cardContent').appendChild(document.createTextNode("Kyoto and Tokyo"))
+quizCard.down.card.querySelector('.cardContent').style.paddingTop = "15px"
+quizCard.down.card.querySelector('.cardContent').style.paddingLeft = "30%"
+
+hint.addEventListener("click", function( event ) {
+    quizCard.slideRight()
+}, false);
+answer.addEventListener("click", function( event ) {
+    quizCard.slideDown()
+}, false);
 
 // Crazy Card
 const startPoint = new MultiCard(undefined, undefined, null, undefined)

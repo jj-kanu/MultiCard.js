@@ -40,3 +40,12 @@
 	height: 200px;
     border: 1px solid lightgray;
 }
+
+#quizCard {
+    position: absolute;
+	top: 100px;
+    left: 1500px;
+	width: 400px;
+	height: 200px;
+    border: 1px solid lightgray;
+}
