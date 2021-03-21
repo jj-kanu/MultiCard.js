@@ -49,12 +49,11 @@ document.querySelector('#businessCard').appendChild(businessCard.card)
 businessCard.card.querySelector('.cardContent').style.backgroundImage = "url('https://cdnb.artstation.com/p/assets/images/images/023/818/911/large/alex-stem-geometric-wallpaper.jpg?1580426586')"
 
 // Make SubCards
-businessCard.makeUp();
-businessCard.makeDown();
-businessCard.makeLeft();
-businessCard.makeRight();
+businessCard.makeUp("30px");
+businessCard.makeDown("80px");
+businessCard.makeLeft("149px");
+businessCard.makeRight("149px");
 
-// businessCard.card.querySelector('.cardContent').innerHTML = ""
 
 // Buttons
 const wrapper = document.createElement('div')
@@ -111,3 +110,20 @@ skills.addEventListener("click", function( event ) {
 wrapper.appendChild(skills)
 
 textContent.appendChild((wrapper))
+
+// WEBSITE  // MAYBE TURN THIS FIRST LINE INTO A FUNCTION FOR SETTING THEME
+businessCard.up.card.style.backgroundColor = "#181818"
+businessCard.up.card.querySelector('.cardContent').appendChild(document.createElement('a'))
+businessCard.up.card.querySelector('.cardContent').style.textAlign = "center"
+businessCard.up.card.querySelector('.cardContent').style.paddingTop = "4px"
+businessCard.up.card.querySelector('a').href = "https://github.com/jj-kanu"
+businessCard.up.card.querySelector('a').style.color = "white"
+businessCard.up.card.querySelector('a').target = "blank"
+businessCard.up.card.querySelector('a').appendChild(document.createTextNode("GitHub Profile"))  
+
+// About Me Card
+businessCard.down.card.style.backgroundColor = "#181818"
+businessCard.down.card.querySelector('.cardContent').appendChild(document.createTextNode("Graduating UofT Student who is mediocre at making 'About Me' descriptions."))
+businessCard.down.card.style.color = "white"  
+businessCard.down.card.querySelector('.cardContent').style.paddingTop = "20px"
+businessCard.down.card.querySelector('.cardContent').style.textAlign = "center"

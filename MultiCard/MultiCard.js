@@ -2,7 +2,7 @@
 
 //Current Limitation: Rest of page zindex must be lower than lowest cards z-index
 
-function MultiCard(width = "300px", height = "150px", title = "Title", content = "ass ass", level = 0) {
+function MultiCard(width = "300px", height = "150px", title = "Title", content = "", level = 0) {
 
     this.width = width;
     this.height = height;
@@ -20,7 +20,7 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 
         card.style = `position:relative; width: ${this.width}; height: ${this.height}; 
                 background-color: white; border: 1px solid lightgray;
-                transition: all 2s ease 0s; display: inline-block;`
+                transition: all 1s ease 0s; display: inline-block;`
 
         if (title != null){
             const header = document.createElement('div')
@@ -46,7 +46,7 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 
         card.style = `position:absolute; width: ${this.width}; height: ${this.height}; 
                 background-color: white; border: 1px solid lightgray;
-                transition: all 2s ease 0s; display: inline-block;` 
+                transition: all 1s ease 0s; display: inline-block;` 
 
         if (title != null){
             const header = document.createElement('div')
@@ -57,6 +57,7 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
     
         //Card Content
         const cardContent = document.createElement('div')
+        cardContent.className = "cardContent";
         cardContent.style = `width: 100%; height: ${this.height};`
         card.appendChild(cardContent)
         cardContent.append(content)
@@ -71,12 +72,13 @@ MultiCard.prototype = {
     // TODO
     // Move sub cards to be at the edge of the cards opposed to opposite edge (Edge cases don't quite work yet)
     // SLIDE BACK (code there, might be inconsistencies with number of pixels in certain directions)
+    // COULD CHANGE THE WIDTH OF SUBCARDS TO BE 1px LESS THAN MAIN
     // Error check if this.direction exists before making card (ie this.right cant make this.left)
 
     makeLeft: function (subWidth = "300px", title = null) {
         if (this.level==0){
             const left = document.createElement('left')
-            this.left = new MultiCard(subWidth, this.height, title, null, this.level-1);
+            this.left = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
             this.left.card.className = "left";
             this.left.card.style.zIndex = this.left.level;
             this.left.card.style.left = "0px";
@@ -87,7 +89,7 @@ MultiCard.prototype = {
             this.card.appendChild(left)
             this.left.right = this;
         } else {
-            this.left = new MultiCard(subWidth, this.height, title, null, this.level-1);
+            this.left = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
             this.left.card.className = this.card.className+"-left";
             this.left.card.style.zIndex = this.left.level;
             this.left.card.style.left = this.card.style.left;
@@ -102,7 +104,7 @@ MultiCard.prototype = {
     makeRight: function (subWidth = "300px", title = null) {
         if (this.level==0){
             const right = document.createElement('right')
-            this.right = new MultiCard(subWidth, this.height, title, null, this.level-1);
+            this.right = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
             this.right.card.className = "right";
             this.right.card.style.zIndex = this.right.level;
             this.right.card.style.right = "0px";
@@ -113,7 +115,7 @@ MultiCard.prototype = {
             this.card.appendChild(right)
             this.right.left = this;
         } else {
-            this.right = new MultiCard(subWidth, this.height, title, null, this.level-1);
+            this.right = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
             this.right.card.className = this.card.className+"-right";
             this.right.card.style.zIndex = this.right.level;
             this.right.card.style.right = this.card.style.right;
@@ -128,7 +130,7 @@ MultiCard.prototype = {
     makeUp: function (subHeight = "150px", title = null) {
         if (this.level==0){
             const up = document.createElement('up')
-            this.up = new MultiCard(this.width, subHeight, title, null, this.level-1);
+            this.up = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
             this.up.card.className = "up";
             this.up.card.style.zIndex = this.up.level;
             this.up.card.style.top = "0px";
@@ -140,7 +142,7 @@ MultiCard.prototype = {
             this.card.appendChild(up)
             this.up.down = this;
         } else {
-            this.up = new MultiCard(this.width, subHeight, title, null, this.level-1);
+            this.up = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
             this.up.card.className = this.card.className+"-up";
             this.up.card.style.zIndex = this.up.level;
             this.up.card.style.top = this.card.style.top;
@@ -156,7 +158,7 @@ MultiCard.prototype = {
         // If top level, make first sublevel
         if (this.level==0){
             const down = document.createElement('down')
-            this.down = new MultiCard(this.width, subHeight, title, null, this.level-1);
+            this.down = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
             this.down.card.className = "down";
             this.down.card.style.zIndex = this.down.level;
             this.down.card.style.left = "-1px";
@@ -167,7 +169,7 @@ MultiCard.prototype = {
             this.card.appendChild(down)
             this.down.up = this;
         } else { //Else, append to name and make new element
-            this.down = new MultiCard(this.width, subHeight, title, null, this.level-1);
+            this.down = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
             this.down.card.className = this.card.className+"-down";
             this.down.card.style.zIndex = this.down.level;
             this.down.card.style.left = this.card.style.left;
@@ -198,12 +200,12 @@ MultiCard.prototype = {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.right.out){
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
-                subCard.style.right = +subCard.style.right.slice(0,-2) - +subCard.style.width.slice(0,-2) - 2 + "px";
+                subCard.style.right = +subCard.style.right.slice(0,-2) - +subCard.style.width.slice(0,-2) + "px";
             }
             this.right.out = true;
         } else {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
-                subCard.style.right = +subCard.style.right.slice(0,-2) + +subCard.style.width.slice(0,-2) - 2 + "px";
+                subCard.style.right = +subCard.style.right.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
             }
             this.right.out = false;
         }
@@ -212,12 +214,12 @@ MultiCard.prototype = {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.up.out){
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
-                subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) - 2 + "px";
+                subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
             }
             this.up.out = true;
         } else {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
-                subCard.style.top= +subCard.style.top.slice(0,-2) + +subCard.style.height.slice(0,-2) - 2 + "px";
+                subCard.style.top= +subCard.style.top.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
             }
             this.up.out = false;
         }
@@ -227,12 +229,12 @@ MultiCard.prototype = {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.down.out){
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
-                subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) - 2 + "px";
+                subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
             }
             this.down.out = true;
         } else {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
-                subCard.style.bottom = +subCard.style.bottom.slice(0,-2) + +subCard.style.height.slice(0,-2) - 2 + "px";
+                subCard.style.bottom = +subCard.style.bottom.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
             }
             this.down.out = false;
         }
