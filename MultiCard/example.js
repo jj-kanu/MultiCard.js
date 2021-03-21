@@ -233,3 +233,10 @@ setTimeout(function() {startPoint.down.down.right.right.slideUp()}, 5000);
 setTimeout(function() {startPoint.down.down.left.left.slideUp()}, 5000);
 setTimeout(function() {startPoint.down.down.right.right.up.slideUp()}, 6000);
 setTimeout(function() {startPoint.down.down.left.left.up.slideUp()}, 6000);
+// AND REVERSE
+setTimeout(function() {startPoint.down.down.right.right.up.slideUp()}, 7000);
+setTimeout(function() {startPoint.down.down.left.left.up.slideUp()}, 7000);
+setTimeout(function() {startPoint.down.down.right.right.slideUp()}, 8000);
+setTimeout(function() {startPoint.down.down.left.left.slideUp()}, 8000);
+setTimeout(function() {startPoint.down.down.right.slideRight()}, 9000);
+setTimeout(function() {startPoint.down.down.left.slideLeft()}, 9000);
