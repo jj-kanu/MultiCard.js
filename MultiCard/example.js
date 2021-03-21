@@ -4,30 +4,31 @@
 // log(e.text())
 // log("my ass")
 
+// Test MultiCard
+// const cg = new MultiCard(undefined, undefined, undefined, tempContent);
+// log(cg)
+// document.querySelector('#testDiv').appendChild(cg.card)
+// cg.makeRight("150px","test");
+// cg.makeLeft();
+// cg.makeDown();
+// log(cg.down)
+// cg.down.makeDown();
+// cg.down.down.makeRight();
+// log(cg.down.down)
+// // setTimeout(function() {cg.slideRight()}, 2000);
+// // setTimeout(function() {cg.slideLeft()}, 2000);
+// setTimeout(function() {cg.slideDown()}, 2000);
+// setTimeout(function() {cg.down.slideDown(), log("sliddown")}, 4000);
+// log(cg.down.down)
+// setTimeout(function() {cg.down.down.slideRight()}, 6000);
+// cg.left.height = "300px"
+
+// BUSINESS CARD
+
 const tempContent = document.createElement('div')
 tempContent.style = "margin-left: 25%"
 tempContent.innerHTML = "<button>up</button><button>down</button><button onClick=cg.slideLeft()>left</button><button onClick=cg.slideRight()>right</button>";
 
-// Test MultiCard
-const cg = new MultiCard(undefined, undefined, undefined, tempContent);
-log(cg)
-document.querySelector('#testDiv').appendChild(cg.card)
-cg.makeRight("150px","test");
-cg.makeLeft();
-cg.makeDown();
-log(cg.down)
-cg.down.makeDown();
-cg.down.down.makeRight();
-log(cg.down.down)
-// setTimeout(function() {cg.slideRight()}, 2000);
-// setTimeout(function() {cg.slideLeft()}, 2000);
-setTimeout(function() {cg.slideDown()}, 2000);
-setTimeout(function() {cg.down.slideDown(), log("sliddown")}, 4000);
-log(cg.down.down)
-setTimeout(function() {cg.down.down.slideRight()}, 6000);
-// cg.left.height = "300px"
-
-// BUSINESS CARD
 const textContent = document.createElement('div')
 textContent.style.color = "white"
 textContent.style.fontFamily = "verdana"
@@ -201,3 +202,34 @@ snCard.up.card.querySelector('.cardContent').style.paddingTop = "3px"
 snCard.up.card.querySelector('.cardContent').appendChild(document.createTextNode("Starry Night ~ Vincent Van Gogh "))
 snCard.down.card.querySelector('.cardContent').style.paddingTop = "5px"
 snCard.down.card.querySelector('.cardContent').appendChild(document.createTextNode("Painted in June 1889, it depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, just before sunrise, with the addition of an imaginary village."))
+
+
+// Quiz Card (hint on right, answer on bottom)
+
+// Crazy Card
+const startPoint = new MultiCard(undefined, undefined, null, undefined)
+document.querySelector('#crazyCard').appendChild(startPoint.card)
+
+startPoint.makeDown()
+startPoint.down.makeDown()
+startPoint.down.down.makeRight()
+startPoint.down.down.makeLeft()
+startPoint.down.down.right.makeRight()
+startPoint.down.down.left.makeLeft()
+startPoint.down.down.right.right.makeUp()
+startPoint.down.down.left.left.makeUp()
+startPoint.down.down.right.right.up.makeUp()
+startPoint.down.down.left.left.up.makeUp()
+
+
+// Slide Out
+setTimeout(function() {startPoint.slideDown()}, 1000);
+setTimeout(function() {startPoint.down.slideDown()}, 2000);
+setTimeout(function() {startPoint.down.down.slideRight()}, 3000);
+setTimeout(function() {startPoint.down.down.slideLeft()}, 3000);
+setTimeout(function() {startPoint.down.down.right.slideRight()}, 4000);
+setTimeout(function() {startPoint.down.down.left.slideLeft()}, 4000);
+setTimeout(function() {startPoint.down.down.right.right.slideUp()}, 5000);
+setTimeout(function() {startPoint.down.down.left.left.slideUp()}, 5000);
+setTimeout(function() {startPoint.down.down.right.right.up.slideUp()}, 6000);
+setTimeout(function() {startPoint.down.down.left.left.up.slideUp()}, 6000);

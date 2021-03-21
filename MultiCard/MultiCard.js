@@ -210,6 +210,7 @@ MultiCard.prototype = {
             this.right.out = false;
         }
     },
+    // ADD CONDITIONAL THAT CHECKS IF CURRENT POSITION HAS NEGATIVE TOP OR BOTTOM AND MOVE ACCORDIGNLY, GOING TO HAVE TO DO FOR LEFT-RIGHT TOO
     slideUp: function () {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.up.out){
