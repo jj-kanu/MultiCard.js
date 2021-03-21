@@ -27,14 +27,11 @@ log(cg.down.down)
 setTimeout(function() {cg.down.down.slideRight()}, 6000);
 // cg.left.height = "300px"
 
-// Business Card
-
-// Actual Text in card
+// BUSINESS CARD
 const textContent = document.createElement('div')
 textContent.style.color = "white"
 textContent.style.fontFamily = "verdana"
 textContent.style.paddingTop = "13%";
-// textContent.innerHTML = "<strong style=font-size:40px>JJ Kanu</strong> <br> <span className='bCardButton' onClick=businessCard.slideDown()>About</span> | <span onClick=businessCard.slideLeft()>Contact Info</span> | <span onClick=businessCard.slideUp()>Website</span> | <span onClick=businessCard.slideRight()>Skills</span>";
 
 //Name
 const myName = document.createElement('span')
@@ -168,3 +165,39 @@ businessCard.left.card.querySelector('.cardContent').appendChild(document.create
 businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode("LinkedIn: "))
 businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
 businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode('- JJ Kanu'))
+
+
+// ART PIECE
+const snContainer = document.createElement('img')
+snContainer.src = "https://www.vangoghgallery.com/img/starry_night_full.jpg"
+snContainer.style.width = "100%"
+snContainer.style.height = "100%"
+const snCard = new MultiCard("320px","254px",null,snContainer)
+document.querySelector('#starryNight').appendChild(snCard.card)
+
+snCard.makeUp("30px")
+snCard.makeDown("90px")
+
+snContainer.addEventListener("mouseover", function( event ) {
+    snCard.slideDown();
+    snCard.slideUp();
+}, false);
+snContainer.addEventListener("mouseout", function( event ) {
+    snCard.slideDown();
+    snCard.slideUp();
+}, false);
+
+snCard.up.card.style.backgroundColor = "#181848"
+snCard.up.card.style.color = "white"
+snCard.up.card.style.textAlign = "center"
+snCard.up.card.style.borderColor = "#4888C8"
+snCard.down.card.style.backgroundColor = "#181848"
+snCard.down.card.style.color = "white"
+snCard.down.card.style.textAlign = "center"
+snCard.down.card.style.borderColor = "#4888C8"
+
+//Content
+snCard.up.card.querySelector('.cardContent').style.paddingTop = "3px"
+snCard.up.card.querySelector('.cardContent').appendChild(document.createTextNode("Starry Night ~ Vincent Van Gogh "))
+snCard.down.card.querySelector('.cardContent').style.paddingTop = "5px"
+snCard.down.card.querySelector('.cardContent').appendChild(document.createTextNode("Painted in June 1889, it depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, just before sunrise, with the addition of an imaginary village."))

@@ -134,7 +134,7 @@ MultiCard.prototype = {
             this.up.card.className = "up";
             this.up.card.style.zIndex = this.up.level;
             this.up.card.style.top = "0px";
-            this.up.card.style.left = "0px";
+            this.up.card.style.left = "-1px";
             this.up.card.style.right = "0px";
             this.up.card.style.bottom = "0px";
             
