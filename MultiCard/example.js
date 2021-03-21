@@ -51,7 +51,7 @@ businessCard.card.querySelector('.cardContent').style.backgroundImage = "url('ht
 // Make SubCards
 businessCard.makeUp("30px");
 businessCard.makeDown("80px");
-businessCard.makeLeft("149px");
+businessCard.makeLeft("140px");
 businessCard.makeRight("149px");
 
 
@@ -127,3 +127,44 @@ businessCard.down.card.querySelector('.cardContent').appendChild(document.create
 businessCard.down.card.style.color = "white"  
 businessCard.down.card.querySelector('.cardContent').style.paddingTop = "20px"
 businessCard.down.card.querySelector('.cardContent').style.textAlign = "center"
+
+// Skills 
+businessCard.right.card.style.backgroundColor = "#181818"
+businessCard.right.card.style.color = "white"  
+businessCard.right.card.querySelector('.cardContent').style.paddingLeft = "10px"  
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("Hard Skills:"))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("- Python"))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("- JavaScript"))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("- R"))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("Soft Skills:"))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("- Strong Communication"))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createTextNode("- Team Player"))
+businessCard.right.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+
+
+// Contact Info
+businessCard.left.card.style.backgroundColor = "#181818"
+businessCard.left.card.style.color = "white"  
+businessCard.left.card.querySelector('.cardContent').style.paddingLeft = "10px"  
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode("Email:"))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode("- jjk@notreal.com"))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode("Phone Number: "))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode("- 647-555-6969"))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode("LinkedIn: "))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createElement('br'))
+businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode('- JJ Kanu'))
