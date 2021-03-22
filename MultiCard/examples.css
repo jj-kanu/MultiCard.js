@@ -2,8 +2,9 @@
 
 #bodyContainer {
     margin: auto;
-    width: 1000px;
-    border: 5px solid red;
+    width: 950px;
+    height: fit-content;
+    /* border: 5px solid red; */
 }
 
 #title {
@@ -69,4 +70,11 @@
     margin: auto;
 	width: fit-content;
 	height: fit-content;
+}
+
+#footer {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    margin-top: 350px;
+    text-align: center;
 }
