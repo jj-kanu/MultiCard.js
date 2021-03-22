@@ -249,27 +249,54 @@ crazyButton.style.marginLeft = "37%"
 crazyButton.style.marginTop = "23%"
 startPoint.card.querySelector('.cardContent').appendChild(crazyButton)
 
+// Function to Label Subcards
+const labelSubCard = (direction,fontSize,paddingTop) => {
+    eval(`startPoint.${direction}.card.querySelector('.cardContent').appendChild(document.createTextNode("${direction}"))`)
+    eval(`startPoint.${direction}.card.querySelector('.cardContent').style.fontSize = "${fontSize}"`)
+    eval(`startPoint.${direction}.card.querySelector('.cardContent').style.paddingTop = "${paddingTop}"`)
+    eval(`startPoint.${direction}.card.querySelector('.cardContent').style.textAlign = "center"`)
+}
+
 startPoint.card.style.backgroundColor = "#3399ff"
 startPoint.makeDown()
 startPoint.down.card.style.backgroundColor = "#66ccff"
+labelSubCard("down", "30px", "45px")
+
 startPoint.down.makeDown()
 startPoint.down.down.card.style.backgroundColor = "#ccffff"
+labelSubCard("down.down", "30px", "45px")
+
 startPoint.down.down.makeRight()
 startPoint.down.down.right.card.style.backgroundColor = "#ccffff"
+labelSubCard("down.down.right", "25px", "45px")
+
 startPoint.down.down.makeLeft()
 startPoint.down.down.left.card.style.backgroundColor = "#ccffff"
+labelSubCard("down.down.left", "25px", "45px")
+
 startPoint.down.down.right.makeRight()
 startPoint.down.down.right.right.card.style.backgroundColor = "#ccffff"
+labelSubCard("down.down.right.right", "25px", "45px")
+
 startPoint.down.down.left.makeLeft()
 startPoint.down.down.left.left.card.style.backgroundColor = "#ccffff"
+labelSubCard("down.down.left.left", "25px", "45px")
+
 startPoint.down.down.right.right.makeUp()
 startPoint.down.down.right.right.up.card.style.backgroundColor = "#66ccff"
+labelSubCard("down.down.right.right.up", "25px", "45px")
+
 startPoint.down.down.left.left.makeUp()
 startPoint.down.down.left.left.up.card.style.backgroundColor = "#66ccff"
+labelSubCard("down.down.left.left.up", "25px", "45px")
+
 startPoint.down.down.right.right.up.makeUp()
 startPoint.down.down.right.right.up.up.card.style.backgroundColor = "#3399ff"
+labelSubCard("down.down.right.right.up.up", "25px", "45px")
+
 startPoint.down.down.left.left.up.makeUp()
 startPoint.down.down.left.left.up.up.card.style.backgroundColor = "#3399ff"
+labelSubCard("down.down.left.left.up.up", "25px", "45px")
 
 crazyButton.addEventListener("click", function( event ) {
     event.target.disabled = true;
