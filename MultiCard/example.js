@@ -1,27 +1,6 @@
 "use strict";
 
-// const e = $('#testDiv')
-// log(e.text())
-// log("my ass")
-
-// Test MultiCard
-// const cg = new MultiCard(undefined, undefined, undefined, tempContent);
-// log(cg)
-// document.querySelector('#testDiv').appendChild(cg.card)
-// cg.makeRight("150px","test");
-// cg.makeLeft();
-// cg.makeDown();
-// log(cg.down)
-// cg.down.makeDown();
-// cg.down.down.makeRight();
-// log(cg.down.down)
-// // setTimeout(function() {cg.slideRight()}, 2000);
-// // setTimeout(function() {cg.slideLeft()}, 2000);
-// setTimeout(function() {cg.slideDown()}, 2000);
-// setTimeout(function() {cg.down.slideDown(), log("sliddown")}, 4000);
-// log(cg.down.down)
-// setTimeout(function() {cg.down.down.slideRight()}, 6000);
-// cg.left.height = "300px"
+// Make Edit Content Card into a function, skips the document.querySelector etc.
 
 // BUSINESS CARD
 
