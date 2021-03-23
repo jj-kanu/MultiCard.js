@@ -1,6 +1,6 @@
 "use strict";
 
-//Current Limitation: Rest of page zindex must be lower than lowest cards z-index
+//Current Limitation: Rest of page zindex must be lower than lowest cards z-index (Maybe change z-index once card is out)
 
 function MultiCard(width = "300px", height = "150px", title = "Title", content = "", level = 0) {
 
