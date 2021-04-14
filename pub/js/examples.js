@@ -248,7 +248,7 @@ startPoint.down.down.makeRight()
 startPoint.down.down.right.card.style.backgroundColor = "#ccffff"
 labelSubCard("down.down.right", "25px", "45px")
 
-startPoint.down.down.makeLeft()
+startPoint.down.down.makeLeft(undefined, undefined, undefined, false)
 startPoint.down.down.left.card.style.backgroundColor = "#ccffff"
 labelSubCard("down.down.left", "25px", "45px")
 
@@ -309,5 +309,5 @@ crazyButton.addEventListener("click", function( event ) {
 // startPoint.deleteCard(true)
 
 // Testing don't delete all children
-startPoint.down.down.right.deleteCard(true)
-console.log(startPoint.down.down)
+// startPoint.down.down.right.deleteCard(false)
+// console.log(startPoint.down.down.card)

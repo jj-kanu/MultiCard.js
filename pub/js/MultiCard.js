@@ -1,10 +1,11 @@
 "use strict";
 
-//Current Limitation: Rest of page zindex must be lower than lowest cards z-index (Maybe change z-index once card is out)
 // For subcards bigger than maincard, transition visibility on slide out (initial check for size: if bigger, set invisible)
 // If logo needed, use russian nesting doll on a card
 
-function MultiCard(width = "300px", height = "150px", title = "Title", content = "", level = 0) {
+// RIGHT NOW, MakeUp and MakeDown have (subheight, subwidth) and MakeLeft and MakeRight have (subWidth, subHeight)
+
+function MultiCard(width = "300px", height = "150px", title = "Title", content = "", level = 0, visible = true) {
 
     this.width = width;
     this.height = height;
@@ -43,6 +44,8 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 
         //Checks if subcard is in or out
         this.out = false;
+        // Sets Subcard visibility. if visible is false, current subcard and its children will be invisible and fade in
+        this.visible = visible;
 
         this.card = document.createElement('SubCard')
         const card = this.card
@@ -53,8 +56,11 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
                 display: inline-block;
                 transition: all 1s ease 0s, z-index 2000ms ease-in, opacity 1000ms linear, visibility 1000ms linear;`
                 
-                // This code is to add opacity changes
-                // visibility: hidden; opacity: 0;`
+                // Add invisibility
+                if (!this.visible) {
+                    card.style.visibility = "hidden"
+                    card.style.opacity = 0
+                }
 
         if (title != null){
             const header = document.createElement('div')
@@ -83,10 +89,22 @@ MultiCard.prototype = {
     // COULD CHANGE THE WIDTH OF SUBCARDS TO BE 1px LESS THAN MAIN
     // Error check if this.direction exists before making card (ie this.right cant make this.left)
 
-    makeLeft: function (subWidth = "300px", title = null) {
+    makeLeft: function (subWidth = "300px", subHeight, title = null, visible = true) {
+
+        // Sets subHeight to same as parent or custom
+        let cardHeight = subHeight ? subHeight: this.height
+        //Check if parent card is visible
+        let makeVisible
+        if ((this.level < 0 && !this.visible) || visible == false){
+            makeVisible = false
+        } // If subcard width or height greater than current card, make invisible
+        if ((+this.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+this.width.slice(0,-2) < +subWidth.slice(0,-2) )){
+            makeVisible = false
+        }
+
         if (this.level==0){
             const left = document.createElement('left')
-            this.left = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
+            this.left = new MultiCard(subWidth, cardHeight, title, undefined, this.level-1, makeVisible);
             this.left.card.className = "left";
             this.left.card.style.zIndex = this.left.level;
             this.left.card.style.left = "0px";
@@ -97,7 +115,7 @@ MultiCard.prototype = {
             this.card.appendChild(left)
             this.left.right = this;
         } else {
-            this.left = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
+            this.left = new MultiCard(subWidth, cardHeight, title, undefined, this.level-1, makeVisible);
             this.left.card.className = this.card.className+"-left";
             this.left.card.style.zIndex = this.left.level;
             this.left.card.style.left = this.card.style.left;
@@ -109,10 +127,22 @@ MultiCard.prototype = {
         }
     },
 
-    makeRight: function (subWidth = "300px", title = null) {
+    makeRight: function (subWidth = "300px", subHeight, title = null, visible = true) {
+
+        // Sets subHeight to same as parent or custom
+        let cardHeight = subHeight ? subHeight: this.height
+        //Check if parent card is visible
+        let makeVisible
+        if ((this.level < 0 && !this.visible) || visible == false){
+            makeVisible = false
+        } // If subcard width or height greater than current card, make invisible
+        if ((+this.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+this.width.slice(0,-2) < +subWidth.slice(0,-2) )){
+            makeVisible = false
+        }
+
         if (this.level==0){
             const right = document.createElement('right')
-            this.right = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
+            this.right = new MultiCard(subWidth, cardHeight, title, undefined, this.level-1, makeVisible);
             this.right.card.className = "right";
             this.right.card.style.zIndex = this.right.level;
             this.right.card.style.right = "0px";
@@ -123,7 +153,7 @@ MultiCard.prototype = {
             this.card.appendChild(right)
             this.right.left = this;
         } else {
-            this.right = new MultiCard(subWidth, this.height, title, undefined, this.level-1);
+            this.right = new MultiCard(subWidth, cardHeight, title, undefined, this.level-1, makeVisible);
             this.right.card.className = this.card.className+"-right";
             this.right.card.style.zIndex = this.right.level;
             this.right.card.style.right = this.card.style.right;
@@ -135,10 +165,22 @@ MultiCard.prototype = {
         }
     },
 
-    makeUp: function (subHeight = "150px", title = null) {
+    makeUp: function (subHeight = "150px", subWidth, title = null, visible = true) {
+
+        // Sets subWidth to same as parent or custom
+        let cardWidth = subWidth ? subWidth: this.width
+        //Check if parent card is visible
+        let makeVisible
+        if ((this.level < 0 && !this.visible) || visible == false){
+            makeVisible = false
+        } // If subcard width or height greater than current card, make invisible
+        if ((+this.width.slice(0,-2) < +cardWidth.slice(0,-2) )||(+this.height.slice(0,-2) < +subHeight.slice(0,-2) )){
+            makeVisible = false
+        }
+
         if (this.level==0){
             const up = document.createElement('up')
-            this.up = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
+            this.up = new MultiCard(cardWidth, subHeight, title, undefined, this.level-1, makeVisible);
             this.up.card.className = "up";
             this.up.card.style.zIndex = this.up.level;
             this.up.card.style.top = "0px";
@@ -150,7 +192,7 @@ MultiCard.prototype = {
             this.card.appendChild(up)
             this.up.down = this;
         } else {
-            this.up = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
+            this.up = new MultiCard(cardWidth, subHeight, title, undefined, this.level-1, makeVisible);
             this.up.card.className = this.card.className+"-up";
             this.up.card.style.zIndex = this.up.level;
             this.up.card.style.top = this.card.style.top;
@@ -162,11 +204,23 @@ MultiCard.prototype = {
         }
     },
 
-    makeDown: function (subHeight = "150px", title = null) {
+    makeDown: function (subHeight = "150px", subWidth, title = null, visible = true) {
+
+        // Sets subWidth to same as parent or custom
+        let cardWidth = subWidth ? subWidth: this.width
+        //Check if parent card is visible
+        let makeVisible
+        if ((this.level < 0 && !this.visible) || visible == false){
+            makeVisible = false
+        } // If subcard width or height greater than current card, make invisible
+        if ((+this.width.slice(0,-2) < +cardWidth.slice(0,-2) )||(+this.height.slice(0,-2) < +subHeight.slice(0,-2) )){
+            makeVisible = false
+        }
+
         // If top level, make first sublevel
         if (this.level==0){
             const down = document.createElement('down')
-            this.down = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
+            this.down = new MultiCard(cardWidth, subHeight, title, undefined, this.level-1, makeVisible);
             this.down.card.className = "down";
             this.down.card.style.zIndex = this.down.level;
             this.down.card.style.left = "-1px";
@@ -177,7 +231,7 @@ MultiCard.prototype = {
             this.card.appendChild(down)
             this.down.up = this;
         } else { //Else, append to name and make new element
-            this.down = new MultiCard(this.width, subHeight, title, undefined, this.level-1);
+            this.down = new MultiCard(cardWidth, subHeight, title, undefined, this.level-1, makeVisible);
             this.down.card.className = this.card.className+"-down";
             this.down.card.style.zIndex = this.down.level;
             this.down.card.style.left = this.card.style.left;
@@ -207,6 +261,10 @@ MultiCard.prototype = {
             this.left.card.style.zIndex = this.left.level
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
                 subCard.style.left = +subCard.style.left.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
+            }
+            if (!this.left.visible) {
+                this.left.card.style.visibility = "hidden"
+                this.left.card.style.opacity = "0"
             }
             this.left.out = false;
         }
@@ -238,8 +296,10 @@ MultiCard.prototype = {
                     subCard.style.left= +subCard.style.left.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
                 }
             }
-            // this.right.card.style.visibility = "hidden"
-            // this.right.card.style.opacity = "0"
+            if (!this.right.visible) {
+                this.right.card.style.visibility = "hidden"
+                this.right.card.style.opacity = "0"
+            }
             this.right.out = false;
         }
     },
@@ -270,9 +330,11 @@ MultiCard.prototype = {
                         subCard.style.bottom= +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
                     }
                 }
+                if (!this.up.visible) {
+                    this.up.card.style.visibility = "hidden"
+                    this.up.card.style.opacity = "0"
+                }
                 this.up.out = false;
-                // this.up.card.style.visibility = "hidden"
-                // this.up.card.style.opacity = "0"
         }
         
     },
@@ -304,12 +366,23 @@ MultiCard.prototype = {
                     subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
                 }
             }
+            if (!this.down.visible) {
+                this.down.card.style.visibility = "hidden"
+                this.down.card.style.opacity = "0"
+            }
             this.down.out = false;
         }
     },
 
-    // Customize Card
-    editCard: function(styleProperty, edit, append=false) {
+     // Customize Card Content
+     editCardContent: function(content, contentStyle){
+        if (contentStyle) this.card.cardContent.style = ""
+        if (typeof content == 'string') this.card.cardContent.appendChild(document.createTextNode(content))
+        else this.card.cardContent.appendChild(content)
+    },
+
+    // Customize Card Style
+    editCardStyle: function(styleProperty, edit, append=false) {
         if (!append || !this.card.style[styleProperty]) this.card.style[styleProperty] = edit
         else{
             let curStyle = String(this.card.style[styleProperty]) + ", " + edit
