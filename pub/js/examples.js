@@ -31,7 +31,6 @@ businessCard.makeDown("80px");
 businessCard.makeLeft("140px");
 businessCard.makeRight("149px");
 
-
 // Buttons
 const wrapper = document.createElement('div')
 wrapper.style.marginTop = "20px"
@@ -304,3 +303,11 @@ crazyButton.addEventListener("click", function( event ) {
 
     setTimeout(function() {event.target.disabled = false;}, 12000);
 }, false);
+
+//TESTING
+// Testing delete all children, pointer stil exists
+// startPoint.deleteCard(true)
+
+// Testing don't delete all children
+startPoint.down.down.right.deleteCard(true)
+console.log(startPoint.down.down)

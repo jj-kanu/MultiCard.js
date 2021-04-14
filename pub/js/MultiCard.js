@@ -11,17 +11,18 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
     this.level = level;
 
     // Sub-Cards
-    this.left = null;
-    this.right = null;
-    this.up = null;
-    this.down = null; 
+    this.left;
+    this.right;
+    this.up;
+    this.down; 
     
     if (this.level==0){
         this.card = document.createElement('MultiCard')
         const card = this.card
 
         card.style = `position:relative; width: ${this.width}; height: ${this.height}; 
-                background-color: white; border: 1px solid lightgray;
+                background-color: white; 
+                border: 1px solid lightgray;
                 transition: all 1s ease 0s; display: inline-block;`
 
         if (title != null){
@@ -47,12 +48,13 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
         const card = this.card
 
         card.style = `position:absolute; width: ${this.width}; height: ${this.height}; 
-                background-color: white; border: 1px solid lightgray;
+                background-color: white; 
+                border: 1px solid lightgray;
                 display: inline-block;
-
-                transition: all 1s ease 0s, z-index 2000ms ease-in, opacity 1000ms linear, visibility 1000ms linear; 
-                visibility: hidden; opacity: 0;`
-                // transition: visibility 0s linear 300ms, opacity 300ms; 
+                transition: all 1s ease 0s, z-index 2000ms ease-in, opacity 1000ms linear, visibility 1000ms linear;`
+                
+                // This code is to add opacity changes
+                // visibility: hidden; opacity: 0;`
 
         if (title != null){
             const header = document.createElement('div')
@@ -198,7 +200,6 @@ MultiCard.prototype = {
             }
             this.left.card.style.visibility = "visible"
             this.left.card.style.opacity = "1"
-            // setTimeout(()=>{this.up.card.style.zIndex = "1"},600)
             this.left.card.style.zIndex = "1"
             this.left.out = true;
         } else {
@@ -207,10 +208,6 @@ MultiCard.prototype = {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
                 subCard.style.left = +subCard.style.left.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
             }
-            // setTimeout(()=>{
-                // this.left.card.style.visibility = "hidden"
-                // this.left.card.style.opacity = "0"
-            // },1000)
             this.left.out = false;
         }
     },
@@ -227,12 +224,12 @@ MultiCard.prototype = {
                 }
             }
             this.right.card.style.visibility = "visible"
-            this.right.card.style.visibility = "visible"
             this.right.card.style.opacity = "1"
-            // setTimeout(()=>{this.up.card.style.zIndex = "1"},600)
+            this.right.card.style.zIndex = "1"
             this.right.out = true;
         } else {
             this.right.card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
+            this.right.card.style.zIndex = this.right.level
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
                 // If right is negative (ie right to maincard, slide back by adding to right, else subtract from left)
                 if(+subCard.style.right.slice(0,-2) < 0){
@@ -241,14 +238,11 @@ MultiCard.prototype = {
                     subCard.style.left= +subCard.style.left.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
                 }
             }
-            // setTimeout(()=>{
-                this.right.card.style.visibility = "hidden"
-                this.right.card.style.opacity = "0"
-            // },1000)
+            // this.right.card.style.visibility = "hidden"
+            // this.right.card.style.opacity = "0"
             this.right.out = false;
         }
     },
-    // ADD CONDITIONAL THAT CHECKS IF CURRENT POSITION HAS NEGATIVE TOP OR BOTTOM AND MOVE ACCORDIGNLY, GOING TO HAVE TO DO FOR LEFT-RIGHT TOO
     slideUp: function () {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.up.out){
@@ -261,17 +255,14 @@ MultiCard.prototype = {
                     subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
                 }
             }
-            console.log(this.up.card)
-            this.up.card.style.visibility = "visible"
             this.up.card.style.visibility = "visible"
             this.up.card.style.opacity = "1"
-            // setTimeout(()=>{this.up.card.style.zIndex = "1"},600)
+            this.up.card.style.zIndex = "1"
             this.up.out = true;
         } else {
-            // this.up.card.style.zIndex = this.up.level
-            // setTimeout(()=>{
+            this.up.card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
+            this.up.card.style.zIndex = this.up.level
                 for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
-                    this.up.card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
                     // If top is negative (ie above maincard, slide back by adding to top, else subtract from bottom)
                     if(+subCard.style.top.slice(0,-2) < 0){
                         subCard.style.top= +subCard.style.top.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
@@ -280,11 +271,8 @@ MultiCard.prototype = {
                     }
                 }
                 this.up.out = false;
-                // setTimeout(()=>{
-                    this.up.card.style.visibility = "hidden"
-                    this.up.card.style.opacity = "0"
-                // },1000)
-            // },270)
+                // this.up.card.style.visibility = "hidden"
+                // this.up.card.style.opacity = "0"
         }
         
     },
@@ -299,7 +287,6 @@ MultiCard.prototype = {
                 } else {
                     subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
                 }
-                
             }
             this.down.card.style.visibility = "visible"
             this.down.card.style.visibility = "visible"
@@ -317,14 +304,83 @@ MultiCard.prototype = {
                     subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
                 }
             }
-            // setTimeout(()=>{
-                // this.down.card.style.visibility = "hidden"
-                // this.down.card.style.opacity = "0"
-            // },1000)
             this.down.out = false;
         }
     },
 
     // Customize Card
-    
+    editCard: function(styleProperty, edit, append=false) {
+        if (!append || !this.card.style[styleProperty]) this.card.style[styleProperty] = edit
+        else{
+            let curStyle = String(this.card.style[styleProperty]) + ", " + edit
+            this.card.style[styleProperty] = curStyle
+        }
+    },
+
+    // Delete. Cannot Delete Intersection Cards (ie more than one subcard). Child takes position of parent
+    // Can delete all subcards ooorrrrr have child take property of parent
+    deleteCard: function(deleteChildren) {
+        // Removes Cards from DOM, references still exists at top level
+        if (deleteChildren == true){
+            // Delete Main Card
+            if(this.level==0) this.card.remove()
+
+            // Get directions of parent, remove parent pointer
+            let child; let parent;
+            const getParentChildDirection = (direction, opposite) =>{
+                if (this[direction]){
+                    if(this[direction].level > this.level) {
+                        parent = direction; child = opposite
+                    }
+                }
+            }
+            getParentChildDirection("left", "right")
+            getParentChildDirection("right", "left")
+            getParentChildDirection("up", "down")
+            getParentChildDirection("down", "up")
+
+            if(this.level==-1) {
+                delete this[parent][child]
+                this.card.parentElement.remove()
+            }
+            if(this.level < -1){
+                // Remove all children of subcards with same prefix
+                for (let subCard of this.card.parentElement.querySelectorAll(`subcard[class^=${this.card.className}]`)){
+                    subCard.remove()
+                }
+                delete this[parent][child]
+            }
+        }
+        // Removes Card from DOM, references change
+        if (deleteChildren == false) {
+            let numberOfChildren = 0
+            let child; let parent; let directionRelativeToParent; let directionRelativeToChild
+            // Checks if level of direction is lower. If so, its a child, if higher than parent
+            const isParentOrChild = (direction, opposite) =>{
+                if (this[direction]){
+                    if(this[direction].level < this.level) {
+                        numberOfChildren = numberOfChildren +  1; child = direction; directionRelativeToChild = opposite
+                    } else {parent = direction; directionRelativeToParent = opposite}
+                }
+            }
+            isParentOrChild("left", "right")
+            isParentOrChild("right", "left")
+            isParentOrChild("up", "down")
+            isParentOrChild("down", "up")
+
+            // If more than one child, can't give multiple children properties of parent
+            if (numberOfChildren > 1) return console.log("Cannot remove intersection card. Remove all but one of this card's subcards or remove all of its subcards.")
+            
+            // Moves positioning of child card to current card.
+            this[child].card.style.left = this.card.style.left; 
+            this[child].card.style.right = this.card.style.right; 
+            this[child].card.style.top = this.card.style.top; 
+            this[child].card.style.bottom = this.card.style.bottom
+            // Points parent subcard to grandchild, and vice versa
+            this[parent][directionRelativeToParent] = this[child]
+            this[child][directionRelativeToChild] = this[parent]
+            // Removes current card from DOM
+            this.card.remove()
+        }
+    }
 }
