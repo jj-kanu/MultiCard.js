@@ -261,142 +261,16 @@ MultiCard.prototype = {
     // LEFT MISSING CHECKS THAT OTHER DIRECTIONS HAVE
     // HAVE CONDITIONAL FOR EVERYDIRECTION EXCEPT LEFT (I THINK MESSED UP BY LEFT -1 in the makes)
     slideLeft: function () {
-        const mainOrSub = this.level == 0? this.card: this.card.parentElement
-        if(!this.left.out){
-            this.left.card.style.transition = "all 1s ease 0s, z-index 2000ms ease-in, opacity 1100ms linear, visibility 1100ms linear"
-            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                // If left is negative (ie left of maincard, add to left, else subtract from to right)
-                if (+subCard.style.right.slice(0,-2) < 0){
-                    subCard.style.right= +subCard.style.right.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
-                } else {
-                    subCard.style.left = +subCard.style.left.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
-                }
-            }
-            this.left.card.style.visibility = "visible"
-            this.left.card.style.opacity = "1"
-            this.left.card.style.zIndex = "1"
-            this.left.out = true;
-        } else {
-            this.left.card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
-            this.left.card.style.zIndex = this.left.level
-            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                // If right is negative (ie right to maincard, slide back by adding to right, else subtract from left)
-                if(+subCard.style.left.slice(0,-2) < 0){
-                    subCard.style.left = +subCard.style.left.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
-                } else {
-                    subCard.style.right= +subCard.style.right.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
-                }
-            }
-            if (!this.left.visible) {
-                this.left.card.style.visibility = "hidden"
-                this.left.card.style.opacity = "0"
-            }
-            this.left.out = false;
-        }
+        slide(this, "left")
     },
     slideRight: function () {
-        const mainOrSub = this.level == 0? this.card: this.card.parentElement
-        if(!this.right.out){
-            this.right.card.style.transition = "all 1s ease 0s, z-index 2000ms ease-in, opacity 1100ms linear, visibility 1100ms linear"
-            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
-                // If left is negative (ie left of maincard, add to left, else subtract from to right)
-                if (+subCard.style.left.slice(0,-2) < 0){
-                    subCard.style.left= +subCard.style.left.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
-                } else {
-                    subCard.style.right = +subCard.style.right.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
-                }
-            }
-            this.right.card.style.visibility = "visible"
-            this.right.card.style.opacity = "1"
-            this.right.card.style.zIndex = "1"
-            this.right.out = true;
-        } else {
-            this.right.card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
-            this.right.card.style.zIndex = this.right.level
-            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
-                // If right is negative (ie right to maincard, slide back by adding to right, else subtract from left)
-                if(+subCard.style.right.slice(0,-2) < 0){
-                    subCard.style.right = +subCard.style.right.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
-                } else {
-                    subCard.style.left= +subCard.style.left.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
-                }
-            }
-            if (!this.right.visible) {
-                this.right.card.style.visibility = "hidden"
-                this.right.card.style.opacity = "0"
-            }
-            this.right.out = false;
-        }
+        slide(this, "right")
     },
     slideUp: function () {
-        const mainOrSub = this.level == 0? this.card: this.card.parentElement
-        if(!this.up.out){
-            this.up.card.style.transition = "all 1s ease 0s, z-index 2000ms ease-in, opacity 1100ms linear, visibility 1100ms linear"
-            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
-                // If bottom is negative (ie below maincard, add to bottom, else subtract from to top)
-                if(+subCard.style.bottom.slice(0,-2) < 0){
-                    subCard.style.bottom= +subCard.style.bottom.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
-                } else {
-                    subCard.style.top= +subCard.style.top.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2) + "px";
-                }
-            }
-            this.up.card.style.visibility = "visible"
-            this.up.card.style.opacity = "1"
-            this.up.card.style.zIndex = "1"
-            this.up.out = true;
-        } else {
-            this.up.card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
-            this.up.card.style.zIndex = this.up.level
-                for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
-                    // If top is negative (ie above maincard, slide back by adding to top, else subtract from bottom)
-                    if(+subCard.style.top.slice(0,-2) < 0){
-                        subCard.style.top= +subCard.style.top.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
-                    } else {
-                        subCard.style.bottom= +subCard.style.bottom.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2) + "px";
-                    }
-                }
-                if (!this.up.visible) {
-                    this.up.card.style.visibility = "hidden"
-                    this.up.card.style.opacity = "0"
-                }
-                this.up.out = false;
-        }
-        
+        slide(this, "up")
     },
     slideDown: function () {
-        const mainOrSub = this.level == 0? this.card: this.card.parentElement
-        if(!this.down.out){
-            this.down.card.style.transition = "all 1s ease 0s, z-index 2000ms ease-in, opacity 1100ms linear, visibility 1100ms linear"
-            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
-                // If top is negative (ie above maincard, add to top, else subtract from top)
-                if(+subCard.style.top.slice(0,-2) < 0){
-                    subCard.style.top = +subCard.style.top.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
-                } else {
-                    subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2)  + "px";
-                }
-            }
-            this.down.card.style.visibility = "visible"
-            this.down.card.style.visibility = "visible"
-            this.down.card.style.opacity = "1"
-            this.down.card.style.zIndex = "1"
-            this.down.out = true;
-        } else {
-            this.down.card.style.transition = "all 1s ease 0s, z-index 0ms linear, opacity 1000ms linear, visibility 1000ms linear"
-            this.down.card.style.zIndex = this.down.level
-            for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
-                // If bottom is negative (ie below maincard, slide back by adding to bottom, else subtract from top)
-                if(+subCard.style.bottom.slice(0,-2) < 0){
-                    subCard.style.bottom= +subCard.style.bottom.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
-                } else {
-                    subCard.style.top= +subCard.style.top.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2) + "px";
-                }
-            }
-            if (!this.down.visible) {
-                this.down.card.style.visibility = "hidden"
-                this.down.card.style.opacity = "0"
-            }
-            this.down.out = false;
-        }
+        slide(this, "down")
     },
 
     // Customize Card Content
@@ -492,5 +366,66 @@ MultiCard.prototype = {
             // Removes current card from DOM
             this.card.remove()
         }
+    }
+}
+
+// Helper Functions
+const slide = (thisCard, passDirection) =>{
+    const mainOrSub = thisCard.level == 0? thisCard.card: thisCard.card.parentElement
+    let direction = passDirection; let opposite; let horizontal = true;
+    let directionProperty;
+    switch(direction){
+        case "left":
+            directionProperty = "left";
+            opposite = "right";
+            break;
+        case "right":
+            directionProperty = "right";
+            opposite = "left";
+            break;
+        case "up":
+            directionProperty = "top";
+            opposite = "bottom"; 
+            horizontal = false;
+            break;
+        case "down":
+            directionProperty = "bottom";
+            opposite = "top"; 
+            horizontal = false;
+            break;
+        default:
+            break;
+    }
+
+    let dimension = horizontal ? "width": "height"
+
+    if(!thisCard[direction].out){
+        thisCard[direction].card.style.transition = "all 1s ease 0s, z-index 2000ms ease-in, opacity 1100ms linear, visibility 1100ms linear"
+        for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${thisCard[direction].card.className}]`)){
+            if (+subCard.style[opposite].slice(0,-2) < 0){
+                subCard.style[opposite]= +subCard.style[opposite].slice(0,-2) + (+subCard.style[dimension].slice(0,-2) + 2) + "px";
+            } else {
+                subCard.style[directionProperty] = +subCard.style[directionProperty].slice(0,-2) - (+subCard.style[dimension].slice(0,-2) + 2) + "px";
+            }
+        }
+        thisCard[direction].card.style.visibility = "visible"
+        thisCard[direction].card.style.opacity = "1"
+        thisCard[direction].card.style.zIndex = "1"
+        thisCard[direction].out = true;
+    } else {
+        thisCard[direction].card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
+        thisCard[direction].card.style.zIndex = thisCard[direction].level
+        for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${thisCard[direction].card.className}]`)){
+            if(+subCard.style[directionProperty].slice(0,-2) < 0){
+                subCard.style[directionProperty] = +subCard.style[directionProperty].slice(0,-2) + (+subCard.style[dimension].slice(0,-2) + 2) + "px";
+            } else {
+                subCard.style[opposite]= +subCard.style[opposite].slice(0,-2) - (+subCard.style[dimension].slice(0,-2) + 2) + "px";
+            }
+        }
+        if (!thisCard[direction].visible) {
+            thisCard[direction].card.style.visibility = "hidden"
+            thisCard[direction].card.style.opacity = "0"
+        }
+        thisCard[direction].out = false;
     }
 }
