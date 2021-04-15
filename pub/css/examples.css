@@ -7,7 +7,7 @@
     /* border: 5px solid red; */
 }
 
-#title {
+/* #title {
     text-align: center;
     font-family: 'Open Sans', sans-serif;
 }
@@ -18,6 +18,14 @@
 #title > h3 {
     font-size: 33px;
     margin-top: 0px;
+} */
+
+#titleCard {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 54px;
+    margin-bottom: 95px;
 }
 
 .paraText {

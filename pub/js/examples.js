@@ -2,7 +2,54 @@
 
 // Make Edit Content Card into a function, skips the document.querySelector etc.
 
-// BUSINESS CARD
+// Title Card ======================================================================
+// const titleHeader = document.createElement('div')
+const titleCard = new MultiCard("400px", "95px", null, "MultiCard");
+document.querySelector('#titleCard').appendChild(titleCard.card)
+titleCard.editCardStyle("background-color",  "transparent")
+titleCard.editCardStyle("border",  "none")
+titleCard.editCardContent(undefined, 
+    "text-align: center; font-family: 'Open Sans', sans-serif; font-size: 80px; font-weight: 700; background-color: transparent;")
+
+// Subtitle
+titleCard.makeDown("590px", "70px")
+titleCard.down.editCardStyle("left",  "-100px")
+titleCard.down.editCardStyle("background-color",  "transparent")
+titleCard.down.editCardStyle("border",  "none")
+titleCard.down.editCardContent("The Nesting Doll of Card Components", 
+    "text-align: center; font-family: 'Open Sans', sans-serif; font-size: 33px; font-weight: 700; margin-top: 13px")
+setTimeout(function() {titleCard.slideDown()}, 1000);
+
+// API
+titleCard.makeRight("80px",undefined,undefined,false)
+const docLink = document.createElement('a')
+docLink.href = "/api"
+docLink.style.textDecoration = "none"
+docLink.innerText = "(API)"
+titleCard.right.editCardStyle("right",  "15px")
+titleCard.right.editCardStyle("background-color",  "transparent")
+titleCard.right.editCardStyle("border",  "none")
+titleCard.right.editCardContent(docLink,
+    "font-family: 'Open Sans', sans-serif; bottom: 1px; margin-top: 70px; font-weight: 600;")
+setTimeout(function() {titleCard.slideRight()}, 1500);
+
+// My Name
+titleCard.makeUp(undefined, "20px", undefined, false)
+titleCard.up.editCardStyle("background-color",  "transparent")
+titleCard.up.editCardStyle("border",  "none")
+const authored = document.createElement('span')
+authored.innerHTML = "By: <a href='https://github.com/jj-kanu' style='text-decoration:none' target='blank'>JJ Kanu</a>";
+titleCard.up.editCardContent(authored, 
+    "text-align: right; font-family: 'Open Sans', sans-serif; font-size: 20px; font-weight: 700; margin-top: 10px; margin-right: 21px")
+document.querySelector('#titleCard').addEventListener("mouseover", function( event ) {
+    titleCard.slideUp();
+}, false);
+document.querySelector('#titleCard').addEventListener("mouseout", function( event ) {
+    titleCard.slideUp();
+}, false);
+
+
+// BUSINESS CARD ======================================================================
 
 const tempContent = document.createElement('div')
 tempContent.style = "margin-left: 25%"
@@ -26,8 +73,8 @@ document.querySelector('#businessCard').appendChild(businessCard.card)
 businessCard.card.querySelector('.cardContent').style.backgroundImage = "url('https://cdnb.artstation.com/p/assets/images/images/023/818/911/large/alex-stem-geometric-wallpaper.jpg?1580426586')"
 
 // Make SubCards
-businessCard.makeUp("30px");
-businessCard.makeDown("80px");
+businessCard.makeUp(undefined, "30px");
+businessCard.makeDown(undefined, "80px");
 businessCard.makeLeft("140px");
 businessCard.makeRight("149px");
 
@@ -87,7 +134,7 @@ wrapper.appendChild(skills)
 
 textContent.appendChild((wrapper))
 
-// WEBSITE  // MAYBE TURN THIS FIRST LINE INTO A FUNCTION FOR SETTING THEME
+// WEBSITE 
 businessCard.up.card.style.backgroundColor = "#181818"
 businessCard.up.card.querySelector('.cardContent').appendChild(document.createElement('a'))
 businessCard.up.card.querySelector('.cardContent').style.textAlign = "center"
@@ -146,7 +193,7 @@ businessCard.left.card.querySelector('.cardContent').appendChild(document.create
 businessCard.left.card.querySelector('.cardContent').appendChild(document.createTextNode('- JJ Kanu'))
 
 
-// ART PIECE
+// ART PIECE ======================================================================
 const snContainer = document.createElement('img')
 snContainer.src = "https://www.vangoghgallery.com/img/starry_night_full.jpg"
 snContainer.style.width = "100%"
@@ -154,8 +201,8 @@ snContainer.style.height = "100%"
 const snCard = new MultiCard("320px","254px",null,snContainer)
 document.querySelector('#starryNight').appendChild(snCard.card)
 
-snCard.makeUp("30px")
-snCard.makeDown("90px")
+snCard.makeUp(undefined, "30px")
+snCard.makeDown(undefined, "90px")
 
 snContainer.addEventListener("mouseover", function( event ) {
     snCard.slideDown();
@@ -182,7 +229,7 @@ snCard.down.card.querySelector('.cardContent').style.paddingTop = "5px"
 snCard.down.card.querySelector('.cardContent').appendChild(document.createTextNode("Painted in June 1889, it depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, just before sunrise, with the addition of an imaginary village."))
 
 
-// Quiz Card (hint on right, answer on bottom)
+// Quiz Card (hint on right, answer on bottom) ======================================================================
 const quizCard = new MultiCard("300px","200px","Some Trivia Questions", "What two cities in Japan were consecutive capitals?")
 document.querySelector('#quizCard').appendChild(quizCard.card)
 quizCard.card.style.backgroundColor = "#66ff66"
@@ -200,7 +247,7 @@ quizCard.card.querySelector('.cardContent').appendChild(answer)
 
 quizCard.makeRight("150px")
 quizCard.right.card.style.backgroundColor = "#99ff99"
-quizCard.makeDown("50px")
+quizCard.makeDown(undefined, "50px")
 quizCard.down.card.style.backgroundColor = "#99ff99"
 
 quizCard.right.card.querySelector('.cardContent').style.paddingLeft = "10px"  
@@ -218,7 +265,7 @@ answer.addEventListener("click", function( event ) {
     quizCard.slideDown()
 }, false);
 
-// Crazy Card
+// Crazy Card ======================================================================
 const startPoint = new MultiCard(undefined, undefined, null, undefined)
 document.querySelector('#crazyCard').appendChild(startPoint.card)
 const crazyButton = document.createElement('button')
@@ -236,7 +283,7 @@ const labelSubCard = (direction,fontSize,paddingTop) => {
 }
 
 startPoint.card.style.backgroundColor = "#3399ff"
-startPoint.makeDown()
+startPoint.makeDown(undefined, undefined, undefined, false)
 startPoint.down.card.style.backgroundColor = "#66ccff"
 labelSubCard("down", "30px", "45px")
 
@@ -248,7 +295,7 @@ startPoint.down.down.makeRight()
 startPoint.down.down.right.card.style.backgroundColor = "#ccffff"
 labelSubCard("down.down.right", "25px", "45px")
 
-startPoint.down.down.makeLeft(undefined, undefined, undefined, false)
+startPoint.down.down.makeLeft()
 startPoint.down.down.left.card.style.backgroundColor = "#ccffff"
 labelSubCard("down.down.left", "25px", "45px")
 
