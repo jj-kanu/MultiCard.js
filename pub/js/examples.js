@@ -41,12 +41,13 @@ const authored = document.createElement('span')
 authored.innerHTML = "By: <a href='https://github.com/jj-kanu' style='text-decoration:none' target='blank'>JJ Kanu</a>";
 titleCard.up.editCardContent(authored, 
     "text-align: right; font-family: 'Open Sans', sans-serif; font-size: 20px; font-weight: 700; margin-top: 10px; margin-right: 21px")
-document.querySelector('#titleCard').addEventListener("mouseover", function( event ) {
+document.querySelector('#titleCard').addEventListener("mouseover", () => {
     titleCard.slideUp();
 }, false);
-document.querySelector('#titleCard').addEventListener("mouseout", function( event ) {
+document.querySelector('#titleCard').addEventListener("mouseout", () => {
     titleCard.slideUp();
 }, false);
+
 
 
 // BUSINESS CARD ======================================================================

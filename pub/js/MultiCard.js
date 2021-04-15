@@ -90,9 +90,10 @@ MultiCard.prototype = {
     // Move sub cards to be at the edge of the cards opposed to opposite edge (Edge cases don't quite work yet)
     // SLIDE BACK (code there, might be inconsistencies with number of pixels in certain directions)
     // COULD CHANGE THE WIDTH OF SUBCARDS TO BE 1px LESS THAN MAIN
-    // Error check if this.direction exists before making card (ie this.right cant make this.left)
 
     makeLeft: function (subWidth, subHeight, title = null, visible = true) {
+
+        if (this.left) return console.log("Left subcard already exists")
 
         // Sets dimensions to same as parent or custom
         let cardWidth = subWidth ? subWidth: this.width
@@ -133,6 +134,8 @@ MultiCard.prototype = {
 
     makeRight: function (subWidth, subHeight, title = null, visible = true) {
 
+        if (this.right) return console.log("Right subcard already exists")
+
         // Sets dimensions to same as parent or custom
         let cardWidth = subWidth ? subWidth: this.width
         let cardHeight = subHeight ? subHeight: this.height
@@ -171,6 +174,8 @@ MultiCard.prototype = {
     },
 
     makeUp: function (subWidth, subHeight, title = null, visible = true) {
+
+        if (this.up) return console.log("Up subcard already exists")
 
         // Sets dimensions to same as parent or custom
         let cardWidth = subWidth ? subWidth: this.width
@@ -212,6 +217,8 @@ MultiCard.prototype = {
 
     makeDown: function (subWidth, subHeight, title = null, visible = true) {
 
+        if (this.down) return console.log("Down subcard already exists")
+
         // Sets dimensions to same as parent or custom
         let cardWidth = subWidth ? subWidth: this.width
         let cardHeight = subHeight ? subHeight: this.height
@@ -251,13 +258,19 @@ MultiCard.prototype = {
     },
 
     // Can shorten this to another function that just checks direction
+    // LEFT MISSING CHECKS THAT OTHER DIRECTIONS HAVE
     // HAVE CONDITIONAL FOR EVERYDIRECTION EXCEPT LEFT (I THINK MESSED UP BY LEFT -1 in the makes)
     slideLeft: function () {
         const mainOrSub = this.level == 0? this.card: this.card.parentElement
         if(!this.left.out){
             this.left.card.style.transition = "all 1s ease 0s, z-index 2000ms ease-in, opacity 1100ms linear, visibility 1100ms linear"
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                subCard.style.left = +subCard.style.left.slice(0,-2) - +subCard.style.width.slice(0,-2) + "px";
+                // If left is negative (ie left of maincard, add to left, else subtract from to right)
+                if (+subCard.style.right.slice(0,-2) < 0){
+                    subCard.style.right= +subCard.style.right.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
+                } else {
+                    subCard.style.left = +subCard.style.left.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
+                }
             }
             this.left.card.style.visibility = "visible"
             this.left.card.style.opacity = "1"
@@ -267,7 +280,12 @@ MultiCard.prototype = {
             this.left.card.style.transition = "all 1s ease 0s, z-index 0ms ease-in, opacity 1000ms linear, visibility 1000ms linear"
             this.left.card.style.zIndex = this.left.level
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.left.card.className}]`)){
-                subCard.style.left = +subCard.style.left.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
+                // If right is negative (ie right to maincard, slide back by adding to right, else subtract from left)
+                if(+subCard.style.left.slice(0,-2) < 0){
+                    subCard.style.left = +subCard.style.left.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
+                } else {
+                    subCard.style.right= +subCard.style.right.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
+                }
             }
             if (!this.left.visible) {
                 this.left.card.style.visibility = "hidden"
@@ -283,9 +301,9 @@ MultiCard.prototype = {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
                 // If left is negative (ie left of maincard, add to left, else subtract from to right)
                 if (+subCard.style.left.slice(0,-2) < 0){
-                    subCard.style.left= +subCard.style.left.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.left= +subCard.style.left.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
                 } else {
-                    subCard.style.right = +subCard.style.right.slice(0,-2) - +subCard.style.width.slice(0,-2) + "px";
+                    subCard.style.right = +subCard.style.right.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
                 }
             }
             this.right.card.style.visibility = "visible"
@@ -298,9 +316,9 @@ MultiCard.prototype = {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.right.card.className}]`)){
                 // If right is negative (ie right to maincard, slide back by adding to right, else subtract from left)
                 if(+subCard.style.right.slice(0,-2) < 0){
-                    subCard.style.right = +subCard.style.right.slice(0,-2) + +subCard.style.width.slice(0,-2) + "px";
+                    subCard.style.right = +subCard.style.right.slice(0,-2) + (+subCard.style.width.slice(0,-2) + 2) + "px";
                 } else {
-                    subCard.style.left= +subCard.style.left.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.left= +subCard.style.left.slice(0,-2) - (+subCard.style.width.slice(0,-2) + 2) + "px";
                 }
             }
             if (!this.right.visible) {
@@ -317,9 +335,9 @@ MultiCard.prototype = {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
                 // If bottom is negative (ie below maincard, add to bottom, else subtract from to top)
                 if(+subCard.style.bottom.slice(0,-2) < 0){
-                    subCard.style.bottom= +subCard.style.bottom.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.bottom= +subCard.style.bottom.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
                 } else {
-                    subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.top= +subCard.style.top.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2) + "px";
                 }
             }
             this.up.card.style.visibility = "visible"
@@ -332,9 +350,9 @@ MultiCard.prototype = {
                 for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.up.card.className}]`)){
                     // If top is negative (ie above maincard, slide back by adding to top, else subtract from bottom)
                     if(+subCard.style.top.slice(0,-2) < 0){
-                        subCard.style.top= +subCard.style.top.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
+                        subCard.style.top= +subCard.style.top.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
                     } else {
-                        subCard.style.bottom= +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
+                        subCard.style.bottom= +subCard.style.bottom.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2) + "px";
                     }
                 }
                 if (!this.up.visible) {
@@ -352,9 +370,9 @@ MultiCard.prototype = {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
                 // If top is negative (ie above maincard, add to top, else subtract from top)
                 if(+subCard.style.top.slice(0,-2) < 0){
-                    subCard.style.top = +subCard.style.top.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.top = +subCard.style.top.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
                 } else {
-                    subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.bottom = +subCard.style.bottom.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2)  + "px";
                 }
             }
             this.down.card.style.visibility = "visible"
@@ -368,9 +386,9 @@ MultiCard.prototype = {
             for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.down.card.className}]`)){
                 // If bottom is negative (ie below maincard, slide back by adding to bottom, else subtract from top)
                 if(+subCard.style.bottom.slice(0,-2) < 0){
-                    subCard.style.bottom= +subCard.style.bottom.slice(0,-2) + +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.bottom= +subCard.style.bottom.slice(0,-2) + (+subCard.style.height.slice(0,-2) + 2) + "px";
                 } else {
-                    subCard.style.top= +subCard.style.top.slice(0,-2) - +subCard.style.height.slice(0,-2) + "px";
+                    subCard.style.top= +subCard.style.top.slice(0,-2) - (+subCard.style.height.slice(0,-2) + 2) + "px";
                 }
             }
             if (!this.down.visible) {
