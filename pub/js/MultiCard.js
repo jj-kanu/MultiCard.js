@@ -86,180 +86,22 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 
 MultiCard.prototype = {
 
-    // TODO
-    // Move sub cards to be at the edge of the cards opposed to opposite edge (Edge cases don't quite work yet)
-    // SLIDE BACK (code there, might be inconsistencies with number of pixels in certain directions)
-    // COULD CHANGE THE WIDTH OF SUBCARDS TO BE 1px LESS THAN MAIN
-
     makeLeft: function (subWidth, subHeight, title = null, visible = true) {
-
-        if (this.left) return console.log("Left subcard already exists")
-
-        // Sets dimensions to same as parent or custom
-        let cardWidth = subWidth ? subWidth: this.width
-        let cardHeight = subHeight ? subHeight: this.height
-        //Check if parent card is visible
-        let makeVisible
-        if ((this.level < 0 && !this.visible) || visible == false){
-            makeVisible = false
-        } // If subcard width or height greater than current card, make invisible
-        if ((+this.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+this.width.slice(0,-2) < +cardWidth.slice(0,-2) )){
-            makeVisible = false
-        }
-
-        if (this.level==0){
-            const left = document.createElement('left')
-            this.left = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.left.card.className = "left";
-            this.left.card.style.zIndex = this.left.level;
-            this.left.card.style.left = "0px";
-            this.left.card.style.top = "-1px";
-            this.left.card.style.bottom = "0px";
-            this.left.card.style.right = "0px";
-            left.append(this.left.card)
-            this.card.appendChild(left)
-            this.left.right = this;
-        } else {
-            this.left = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.left.card.className = this.card.className+"-left";
-            this.left.card.style.zIndex = this.left.level;
-            this.left.card.style.left = this.card.style.left;
-            this.left.card.style.top = this.card.style.top;
-            this.left.card.style.bottom = this.card.style.bottom;
-            this.left.card.style.right = this.card.style.right;
-            this.card.parentElement.appendChild(this.left.card)
-            this.left.right = this;
-        }
+        makeCard(this, "left", subWidth, subHeight, title, visible, "0px", "0px", "-1px", "0px")
     },
 
     makeRight: function (subWidth, subHeight, title = null, visible = true) {
-
-        if (this.right) return console.log("Right subcard already exists")
-
-        // Sets dimensions to same as parent or custom
-        let cardWidth = subWidth ? subWidth: this.width
-        let cardHeight = subHeight ? subHeight: this.height
-        //Check if parent card is visible
-        let makeVisible
-        if ((this.level < 0 && !this.visible) || visible == false){
-            makeVisible = false
-        } // If subcard width or height greater than current card, make invisible
-        if ((+this.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+this.width.slice(0,-2) < +cardWidth.slice(0,-2) )){
-            makeVisible = false
-        }
-
-        if (this.level==0){
-            const right = document.createElement('right')
-            this.right = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.right.card.className = "right";
-            this.right.card.style.zIndex = this.right.level;
-            this.right.card.style.right = "0px";
-            this.right.card.style.top = "-1px";
-            this.right.card.style.bottom = "0px"
-            // this.right.card.style.left = "-1px"
-            right.append(this.right.card)
-            this.card.appendChild(right)
-            this.right.left = this;
-        } else {
-            this.right = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.right.card.className = this.card.className+"-right";
-            this.right.card.style.zIndex = this.right.level;
-            this.right.card.style.right = this.card.style.right;
-            this.right.card.style.top = this.card.style.top;
-            this.right.card.style.bottom = this.card.style.bottom;
-            // this.right.card.style.left = this.card.style.left;
-            this.card.parentElement.appendChild(this.right.card)
-            this.right.left = this;
-        }
+        makeCard(this, "right", subWidth, subHeight, title, visible, undefined, "0px", "-1px", "0px")
     },
 
     makeUp: function (subWidth, subHeight, title = null, visible = true) {
-
-        if (this.up) return console.log("Up subcard already exists")
-
-        // Sets dimensions to same as parent or custom
-        let cardWidth = subWidth ? subWidth: this.width
-        let cardHeight = subHeight ? subHeight: this.height
-        //Check if parent card is visible
-        let makeVisible
-        if ((this.level < 0 && !this.visible) || visible == false){
-            makeVisible = false
-        } // If subcard width or height greater than current card, make invisible
-        if ((+this.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+this.width.slice(0,-2) < +cardWidth.slice(0,-2) )){
-            makeVisible = false
-        }
-
-        if (this.level==0){
-            const up = document.createElement('up')
-            this.up = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.up.card.className = "up";
-            this.up.card.style.zIndex = this.up.level;
-            this.up.card.style.top = "0px";
-            this.up.card.style.left = "-1px";
-            this.up.card.style.right = "0px";
-            this.up.card.style.bottom = "0px";
-            
-            up.append(this.up.card)
-            this.card.appendChild(up)
-            this.up.down = this;
-        } else {
-            this.up = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.up.card.className = this.card.className+"-up";
-            this.up.card.style.zIndex = this.up.level;
-            this.up.card.style.top = this.card.style.top;
-            this.up.card.style.left = this.card.style.left;
-            this.up.card.style.right = this.card.style.right;
-            this.up.card.style.bottom = this.card.style.bottom;
-            this.card.parentElement.appendChild(this.up.card)
-            this.up.down = this;
-        }
+        makeCard(this, "up", subWidth, subHeight, title, visible, "-1px", "0px", "0px", "0px")
     },
 
     makeDown: function (subWidth, subHeight, title = null, visible = true) {
-
-        if (this.down) return console.log("Down subcard already exists")
-
-        // Sets dimensions to same as parent or custom
-        let cardWidth = subWidth ? subWidth: this.width
-        let cardHeight = subHeight ? subHeight: this.height
-        //Check if parent card is visible
-        let makeVisible
-        if ((this.level < 0 && !this.visible) || visible == false){
-            makeVisible = false
-        } // If subcard width or height greater than current card, make invisible
-        if ((+this.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+this.width.slice(0,-2) < +cardWidth.slice(0,-2) )){
-            makeVisible = false
-        }
-
-        // If top level, make first sublevel
-        if (this.level==0){
-            const down = document.createElement('down')
-            this.down = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.down.card.className = "down";
-            this.down.card.style.zIndex = this.down.level;
-            this.down.card.style.left = "-1px";
-            this.down.card.style.bottom = "0px";
-            this.down.card.style.right = "0px";
-            
-            down.append(this.down.card)
-            this.card.appendChild(down)
-            this.down.up = this;
-        } else { //Else, append to name and make new element
-            this.down = new MultiCard(cardWidth, cardHeight, title, undefined, this.level-1, makeVisible);
-            this.down.card.className = this.card.className+"-down";
-            this.down.card.style.zIndex = this.down.level;
-            this.down.card.style.left = this.card.style.left;
-            this.down.card.style.bottom = this.card.style.bottom;
-            this.down.card.style.right = this.card.style.right;
-            this.card.parentElement.appendChild(this.down.card)
-            this.down.up = this;
-        }
-
+        makeCard(this, "down", subWidth, subHeight, title, visible, "-1px", "0px", undefined, "0px")
     },
 
-    // Can shorten this to another function that just checks direction
-    // LEFT MISSING CHECKS THAT OTHER DIRECTIONS HAVE
-    // HAVE CONDITIONAL FOR EVERYDIRECTION EXCEPT LEFT (I THINK MESSED UP BY LEFT -1 in the makes)
     slideLeft: function () {
         slide(this, "left")
     },
@@ -318,10 +160,8 @@ MultiCard.prototype = {
                     }
                 }
             }
-            getParentChildDirection("left", "right")
-            getParentChildDirection("right", "left")
-            getParentChildDirection("up", "down")
-            getParentChildDirection("down", "up")
+            
+            getParentChildDirection("left", "right"); getParentChildDirection("right", "left"); getParentChildDirection("up", "down"); getParentChildDirection("down", "up")
 
             if(this.level==-1) {
                 delete this[parent][child]
@@ -347,10 +187,7 @@ MultiCard.prototype = {
                     } else {parent = direction; directionRelativeToParent = opposite}
                 }
             }
-            isParentOrChild("left", "right")
-            isParentOrChild("right", "left")
-            isParentOrChild("up", "down")
-            isParentOrChild("down", "up")
+            isParentOrChild("left", "right"); isParentOrChild("right", "left"); isParentOrChild("up", "down"); isParentOrChild("down", "up")
 
             // If more than one child, can't give multiple children properties of parent
             if (numberOfChildren > 1) return console.log("Cannot remove intersection card. Remove all but one of this card's subcards or remove all of its subcards.")
@@ -367,6 +204,66 @@ MultiCard.prototype = {
             this.card.remove()
         }
     }
+}
+
+const makeCard = (thisCard, passDirection, subWidth, subHeight, title, visible, left, right, top, bottom) => {
+    let direction = passDirection; let opposite;
+    switch(direction){
+        case "left":
+            opposite = "right";
+            break;
+        case "right":
+            opposite = "left";
+            break;
+        case "up":
+            opposite = "bottom"; 
+            break;
+        case "down":
+            opposite = "top"; 
+            break;
+        default:
+            break;
+    }
+
+    if (thisCard[direction]) return console.log(`${direction} subcard already exists`)
+
+        // Sets dimensions to same as parent or custom
+        let cardWidth = subWidth ? subWidth: thisCard.width
+        let cardHeight = subHeight ? subHeight: thisCard.height
+        //Check if parent card is visible
+        let makeVisible
+        if ((thisCard.level < 0 && !thisCard.visible) || visible == false){
+            makeVisible = false
+        } // If subcard width or height greater than current card, make invisible
+        if ((+thisCard.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+thisCard.width.slice(0,-2) < +cardWidth.slice(0,-2) )){
+            makeVisible = false
+        }
+
+        if (thisCard.level==0){
+            const appendDirection = document.createElement(`${direction}`)
+            thisCard[direction] = new MultiCard(cardWidth, cardHeight, title, undefined, thisCard.level-1, makeVisible);
+            thisCard[direction].card.className = `${direction}`;
+            thisCard[direction].card.style.zIndex = thisCard[direction].level;
+            if (left) thisCard[direction].card.style.left = left;
+            if (right) thisCard[direction].card.style.right = right;
+            if (top) thisCard[direction].card.style.top = top;
+            if (bottom) thisCard[direction].card.style.bottom = bottom;
+            
+            appendDirection.append(thisCard[direction].card)
+            thisCard.card.appendChild(appendDirection)
+            thisCard[direction][opposite] = thisCard;
+        } else {
+            thisCard[direction] = new MultiCard(cardWidth, cardHeight, title, undefined, thisCard.level-1, makeVisible);
+            thisCard[direction].card.className = thisCard.card.className+`-${direction}`;
+            thisCard[direction].card.style.zIndex = thisCard[direction].level;
+            thisCard[direction].card.style.top = thisCard.card.style.top;
+            if (direction != "right") thisCard[direction].card.style.left = thisCard.card.style.left;
+            thisCard[direction].card.style.right = thisCard.card.style.right;
+            thisCard[direction].card.style.bottom = thisCard.card.style.bottom;
+            thisCard.card.parentElement.appendChild(thisCard[direction].card)
+            thisCard[direction][opposite] = thisCard;
+        }
+
 }
 
 // Helper Functions
