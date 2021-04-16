@@ -1,24 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
+body {
+    background-color: #FAF9F6;;
+}
+
 #bodyContainer {
     margin: auto;
     width: 950px;
     height: fit-content;
     /* border: 5px solid red; */
 }
-
-/* #title {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-}
-#title > h1 {
-    font-size: 80px;
-    margin-bottom: 0px;
-}
-#title > h3 {
-    font-size: 33px;
-    margin-top: 0px;
-} */
 
 #titleCard {
     width: fit-content;

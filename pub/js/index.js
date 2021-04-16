@@ -301,10 +301,7 @@ startPoint.card.querySelector('.cardContent').appendChild(crazyButton)
 
 // Function to Label Subcards
 const labelSubCard = (direction,fontSize,paddingTop) => {
-    eval(`startPoint.${direction}.card.querySelector('.cardContent').appendChild(document.createTextNode("${direction}"))`)
-    eval(`startPoint.${direction}.card.querySelector('.cardContent').style.fontSize = "${fontSize}"`)
-    eval(`startPoint.${direction}.card.querySelector('.cardContent').style.paddingTop = "${paddingTop}"`)
-    eval(`startPoint.${direction}.card.querySelector('.cardContent').style.textAlign = "center"`)
+    eval(`startPoint.${direction}.editCardContent("${direction}", "font-size:${fontSize}; padding-top:${paddingTop}; text-align:center;")`)
 }
 
 startPoint.card.style.backgroundColor = "#3399ff"

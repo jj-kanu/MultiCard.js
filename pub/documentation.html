@@ -29,6 +29,7 @@
             <div id="title">API <span>V1</span></div>
 
             <div class="headers">Getting Started</div>
+            <hr>
 
             <div class="paraText">
                 <p>
@@ -46,12 +47,14 @@
             <br>
 
             <div class="headers">Constructors</div>
+            <hr>
 
             <div class="subheaders">Main Card Constructor</div>
             <div class="functionNames">MultiCard(width, height, content, visible, level)</div>
                 <div class="paraText">
                     <p>
-                        Returns a MultiCard
+                        Constructs and returns a bare MultiCard. <strong>MultiCard</strong> is the JS object, while <strong>MultiCard.card</strong> 
+                        refers to the element that appears in the DOM.
                     </p>
                     <strong>Parameters:</strong>
                     <ul>
@@ -63,14 +66,18 @@
                     </ul>
                 </div>
                 <div class="codeBlock">
-                    const Example = new MultiCard("500px","200px","Card Text")
+                    //Creates MultiCard <br>
+                    const Example = new MultiCard("500px","200px","Card Text") <br> <br>
+                    // Adds Example MultiCard to DOM in div called 'exampleDiv' <br>
+                    document.querySelector('#exampleDiv').appendChild(Example.card)
                 </div>
 
             <div class="subheaders">Subcard Constructors</div>
-                <div class="functionNames">.make[Left/Right/Up/Down](width, height, content, visible, level)</div>
+                <div class="functionNames">.make[Left/Right/Up/Down](width, height, content, visible)</div>
                 <div class="paraText">
                     <p>
-                        If a subcard exists in associated direction, slide subcard out. <br> Run function again to slide subcard back in.
+                        Creates a subcard in the associated direction. If width and height are undefined, subcard
+                        will inherit dimensions of parent card.
                     </p>
                     <p>
                         Subcards can be referenced by their positioning in relation to the main card. For example, <strong>Card.down</strong> would refer
@@ -80,10 +87,9 @@
                     <strong>Parameters:</strong>
                     <ul>
                         <li><strong>width:</strong> Pixel width dimension string. ("_px")</li>
-                        <li>height: Pixel height dimension string. ("_px")</li>
-                        <li>content: String or ...</li>
-                        <li>visible Set to false to make all subcards fade in and out. Defaulted to true.</li>
-                        <li>level: Used only by functional calls to track subcard hierarchy. Manually setting may cause errors.</li>
+                        <li><strong>height:</strong> Pixel height dimension string. ("_px")</li>
+                        <li><strong>content:</strong> String or ...</li>
+                        <li><strong>visible:</strong> Set to false to make all subcards fade in and out. Defaulted to true.</li>
                     </ul>
                 </div>
                 <div class="codeBlock">
@@ -92,13 +98,13 @@
                     <br> <br>
                     //Creates a left subcard that copies dimensions of parent card and fades in and out.<br>
                     Example.makeLeft(undefined, undefined, "Subcard Text", false)<br><br>
-                    //Creates a down subcard that fades in and out automatically since dimensions bigger than parent card. <br>
-                    Example.makeDown("500px", "300px", "Subcard Text")
-                    
+                    //Creates a down subcard for left subcard that fades in and out automatically since dimensions bigger than parent card. <br>
+                    Example.left.makeDown("500px", "300px", "Subcard Text")
                 </div>
             <br>
 
             <div class="headers">Base Methods</div>
+            <hr>
             
                 <div class="paraText">
                     <p>These are functions that every MultiCard can use.</p>
@@ -111,12 +117,27 @@
                         Running the function again will slide the subcard back in.
                     </p>
                 </div>
+                <div class="codeBlock">
+                    //Slides right subcard out<br>
+                    Example.slideRight()
+                </div>
 
                 <div class="functionNames">.editCardStyle(styleProperty, edit, append=false)</div>
                 <div class="paraText">
                     <p>
-                        If a subcard exists in associated direction, slide subcard out. <br> Run function again to slide subcard back in.
+                        Edits a style property of a card.
                     </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>width:</strong> Pixel width dimension string. ("_px")</li>
+                        <li><strong>height:</strong> Pixel height dimension string. ("_px")</li>
+                        <li><strong>content:</strong> String or ...</li>
+                        <li><strong>visible:</strong> Set to false to make all subcards fade in and out. Defaulted to true.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    //Slides right subcard out<br>
+                    Example.slideRight()
                 </div>
 
                 <div class="functionNames">.editCardContent(content, contentStyle)</div>

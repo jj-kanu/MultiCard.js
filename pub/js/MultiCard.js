@@ -153,7 +153,7 @@ MultiCard.prototype = {
     // },
 
     // Delete. Cannot Delete Intersection Cards (ie more than one subcard). Child takes position of parent
-    deleteCard: function(deleteChildren) {
+    deleteCard: function(deleteChildren = true) {
         // Removes Cards from DOM, references still exists at top level
         if (deleteChildren == true){
             // Delete Main Card
@@ -200,6 +200,15 @@ MultiCard.prototype = {
             // If more than one child, can't give multiple children properties of parent
             if (numberOfChildren > 1) return console.log("Cannot remove intersection card. Remove all but one of this card's subcards or remove all of its subcards.")
             
+            // Weird Positioning if delete card while out
+            // const mainOrSub = this.level == 0? this.card: this.card.parentElement
+            // for (let subCard of mainOrSub.querySelectorAll(`subcard[class^=${this.card.className}]`)){
+            //     subCard.style.left = this.card.style.left; 
+            //     subCard.style.right = this.card.style.right; 
+            //     subCard.style.top = this.card.style.top; 
+            //     subCard.style.bottom = this.card.style.bottom
+            // }
+
             // Moves positioning of child card to current card.
             this[child].card.style.left = this.card.style.left; 
             this[child].card.style.right = this.card.style.right; 

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 /* NavBar ======================================================================= */
 #navBar {
@@ -96,61 +97,95 @@ text-decoration: none;
     font-size: 25px;
 }
 
+.headers {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin-top: 25px;
+}
+.subheaders {
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+
 .paraText {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
 }
 
-#businessCard {
-    /* position: absolute; */
-    /* top: 100px;
-    left: 250px; */
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 105px;
-    width: fit-content;
-	height: fit-content;
-    border: 1px solid black;
-}
-
-.bCardButton:hover {
-    cursor: pointer;
-    color: lightgray;
-}
-
-#starryNight {
-    /* position: absolute; */
-    /* top: 100px;
-    left: 900px; */
-    width: 320px;
-    height: 255px;
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 105px;
-}
-
-#quizCard {
-    /* position: absolute; */
-    margin: auto;
-	/* width: 400px; */
-    width: fit-content;
-	height: fit-content;
-    margin-bottom: 65px;
-}
-
-#crazyCard {
-    /* position: absolute; */
-	/* top: 500px;
-    left: 800px;
-    float: left; */
-    margin: auto;
-	width: fit-content;
-	height: fit-content;
-}
-
-#footer {
+.functionNames {
+    font-style: italic;
+    margin-top: 20px;
     font-family: 'Open Sans', sans-serif;
-    font-size: 20px;
-    margin-top: 350px;
-    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+}
+.functionNames > span {
+    margin-top: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: blue;
+}
+.functionNames > span:hover {
+    cursor: pointer;
+    color: lightblue;
+}
+
+.codeBlock {
+    width: 100%;
+    background-color: #FAF9F6;
+    padding: 20px;
+    padding-right: 0;
+    color: blue;
+    font-family: 'Inconsolata', monospace;
+    margin-bottom: 15px;
+}
+
+.codeBlockHTML {
+    width: 100%;
+    background-color: #dcf4ff;
+    padding: 20px;
+    padding-right: 0;
+    color: blue;
+    font-family: 'Inconsolata', monospace;
+    margin-bottom: 15px;
+}
+
+.codeBlockCSS {
+    background-color: #dbffdb;
+    width: 100%;
+    padding: 20px;
+    padding-right: 0;
+    color: blue;
+    font-family: 'Inconsolata', monospace;
+    margin-bottom: 15px;
+}
+
+/* Examples ===================================================== */
+
+#titleCard {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 54px;
+    margin-bottom: 95px;
+}
+
+#hoverCard {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 54px;
+    margin-bottom: 95px;
+}
+
+#nestedCard {
+    height: 270px;
+}
+
+#deleteCard {
+    height: 270px;
 }
