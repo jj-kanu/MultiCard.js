@@ -4,7 +4,7 @@
 
 // Title Card ======================================================================
 // const titleHeader = document.createElement('div')
-const titleCard = new MultiCard("400px", "95px", null, "MultiCard");
+const titleCard = new MultiCard("455px", "95px", null, "MultiCard.js");
 document.querySelector('#titleCard').appendChild(titleCard.card)
 titleCard.editCardStyle("background-color",  "transparent")
 titleCard.editCardStyle("border",  "none")
@@ -13,7 +13,7 @@ titleCard.editCardContent(undefined,
 
 // Subtitle
 titleCard.makeDown("590px", "70px")
-titleCard.down.editCardStyle("left",  "-100px")
+titleCard.down.editCardStyle("left",  "-70px")
 titleCard.down.editCardStyle("background-color",  "transparent")
 titleCard.down.editCardStyle("border",  "none")
 titleCard.down.editCardContent("The Nesting Doll of Card Components", 
@@ -23,10 +23,10 @@ setTimeout(function() {titleCard.slideDown()}, 1000);
 // API
 titleCard.makeRight("80px",undefined,undefined,false)
 const docLink = document.createElement('a')
-docLink.href = "/api"
+docLink.href = "documentation.html"
 docLink.style.textDecoration = "none"
 docLink.innerText = "(API)"
-titleCard.right.editCardStyle("right",  "15px")
+titleCard.right.editCardStyle("right",  "3px")
 titleCard.right.editCardStyle("background-color",  "transparent")
 titleCard.right.editCardStyle("border",  "none")
 titleCard.right.editCardContent(docLink,
