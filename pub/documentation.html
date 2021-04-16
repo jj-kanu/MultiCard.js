@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/documentation.css">
     <!-- Didn't end up using jquery -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <script defer type="text/javascript" src='js/MultiCard.js'></script>
+    <script defer type="text/javascript" src='your-path-to/MultiCard.js'></script>
 
  </head>
  <body>
@@ -26,58 +26,112 @@
         </div>
         <div id="bodyContainer">
 
+            <div id="title">API <span>V1</span></div>
+
+            <div class="headers">Getting Started</div>
+
             <div class="paraText">
                 <p>
-                MultiCards are card components that use subcards to add extra information, user interactivity, and more.
+                    To use MultiCard.js ... 
                 </p>
                 <p>
-                The idea for MultiCard originally stemmed from the idea of making a digital business card. 
-                This use of MultiCard demonstrates an example of its original purpose. <br>
+                    Load MultiCard with something like: <br>
                 </p> 
-                <p>Click on sections of the card to view its functionality.</p>
             </div>
 
-            <div id="businessCard"></div>
-
-            <!-- Van Gogh -->
-            <div class="paraText">
-                <p>
-                Of course, sliding subcards can occur for different types of events aside from clicks. Here's an example of a possible
-                onHover card that can be used for minimalist image galleries.
-                </p>
+            <div class="codeBlock">
+                &lt;script defer type="text/javascript" src='your-path-to/MultiCard.js'&gt;&lt;/script&gt;
             </div>
-            <div id="starryNight"></div>
 
-            <!-- Quiz -->
-            <div class="paraText">
-                <p>
-                Different types of templates are planned for Multicards. As of right now, cards can have header titles if wanted. <br>
-                Here is an example of a MultiCard with header used to make trivia cards that display hints and answers. 
-                <br> (See if you can get the answer without revealing it)
-                </p>
-            </div>
-            <div id="quizCard"></div>
+            <br>
+
+            <div class="headers">Constructors</div>
+
+            <div class="subheaders">Main Card Constructor</div>
+            <div class="functionNames">MultiCard(width, height, content, visible, level)</div>
+                <div class="paraText">
+                    <p>
+                        Returns a MultiCard
+                    </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>width:</strong> Pixel width dimension string. ("_px")</li>
+                        <li><strong>height:</strong> Pixel height dimension string. ("_px")</li>
+                        <li><strong>content:</strong> String or ...</li>
+                        <li><strong>visible:</strong> Set to false to make all subcards fade in and out. Defaulted to true.</li>
+                        <li><strong>level:</strong> Used only by functional calls to track subcard hierarchy. Manually setting may cause errors.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    const Example = new MultiCard("500px","200px","Card Text")
+                </div>
+
+            <div class="subheaders">Subcard Constructors</div>
+                <div class="functionNames">.make[Left/Right/Up/Down](width, height, content, visible, level)</div>
+                <div class="paraText">
+                    <p>
+                        If a subcard exists in associated direction, slide subcard out. <br> Run function again to slide subcard back in.
+                    </p>
+                    <p>
+                        Subcards can be referenced by their positioning in relation to the main card. For example, <strong>Card.down</strong> would refer
+                        to the subcard immediately below the MultiCard, <strong>Card</strong>, while <strong>Card.down.right</strong> would refer to the right subcard of 
+                        <strong>Card.down.</strong>
+                    </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>width:</strong> Pixel width dimension string. ("_px")</li>
+                        <li>height: Pixel height dimension string. ("_px")</li>
+                        <li>content: String or ...</li>
+                        <li>visible Set to false to make all subcards fade in and out. Defaulted to true.</li>
+                        <li>level: Used only by functional calls to track subcard hierarchy. Manually setting may cause errors.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    //Creates a right subcard that slides out <br>
+                    Example.makeRight("200px", "150px", "Subcard Text")
+                    <br> <br>
+                    //Creates a left subcard that copies dimensions of parent card and fades in and out.<br>
+                    Example.makeLeft(undefined, undefined, "Subcard Text", false)<br><br>
+                    //Creates a down subcard that fades in and out automatically since dimensions bigger than parent card. <br>
+                    Example.makeDown("500px", "300px", "Subcard Text")
+                    
+                </div>
+            <br>
+
+            <div class="headers">Base Methods</div>
             
-            <!-- Crazy Card -->
-            <div class="paraText">
-                <p>
-                Now, you might be thinking, 'I get it, it's just a card component with drawers'. However, these examples
-                only scratch the surface in terms of the creative layouts you can use these components in.
-                </p>
-                <p>
-                MultiCards use a linked structure where each MultiCard points to a subcard in each of its four directions: up, down, left, and right. 
-                But, each subcard is also a MultiCard! That means they can have their own subcards. 
-                <br> <br>Scroll to the bottom of page and try the example below to see this visualized.
-                </p>
-            </div>
-            <div id="crazyCard"></div>
+                <div class="paraText">
+                    <p>These are functions that every MultiCard can use.</p>
+                </div>
 
-            <!-- Footer -->
-            <div id="footer">
-                <p>
-                That's all for now. Stay tuned to see future implementations of MultiCard!
-                </p>
-            </div>
+                <div class="functionNames">.slideLeft(), .slideRight(), .slideUp(), .slideDown()</div>
+                <div class="paraText">
+                    <p>
+                        If a subcard exists in associated direction, slide subcard out. 
+                        Running the function again will slide the subcard back in.
+                    </p>
+                </div>
+
+                <div class="functionNames">.editCardStyle(styleProperty, edit, append=false)</div>
+                <div class="paraText">
+                    <p>
+                        If a subcard exists in associated direction, slide subcard out. <br> Run function again to slide subcard back in.
+                    </p>
+                </div>
+
+                <div class="functionNames">.editCardContent(content, contentStyle)</div>
+                <div class="paraText">
+                    <p>
+                        If a subcard exists in associated direction, slide subcard out. <br> Run function again to slide subcard back in.
+                    </p>
+                </div>
+
+                <div class="functionNames">.deleteCard(deleteChildren)</div>
+                <div class="paraText">
+                    <p>
+                        If a subcard exists in associated direction, slide subcard out. <br> Run function again to slide subcard back in.
+                    </p>
+                </div>
 
         </div>
     </div>

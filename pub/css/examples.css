@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 /* NavBar ======================================================================= */
 #navBar {
@@ -97,39 +96,9 @@ text-decoration: none;
     font-size: 25px;
 }
 
-.headers {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-    font-size: 30px;
-    margin-top: 15px;
-}
-.subheaders {
-    margin-top: 10px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 25px;
-    font-weight: 600;
-}
-
 .paraText {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
-}
-
-.functionNames {
-    font-style: italic;
-    margin-top: 10px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 25px;
-    font-weight: 600;
-}
-
-.codeBlock {
-    width: 100%;
-    background-color: #FAF9F6;
-    padding: 20px;
-    color: blue;
-    font-family: 'Inconsolata', monospace;
-    margin-bottom: 5px;
 }
 
 #businessCard {

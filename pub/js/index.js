@@ -4,7 +4,7 @@
 
 // Title Card ======================================================================
 // const titleHeader = document.createElement('div')
-const titleCard = new MultiCard("455px", "95px", null, "MultiCard.js");
+const titleCard = new MultiCard("455px", "95px", "MultiCard.js");
 document.querySelector('#titleCard').appendChild(titleCard.card)
 titleCard.editCardStyle("background-color",  "transparent")
 titleCard.editCardStyle("border",  "none")
@@ -21,24 +21,48 @@ titleCard.down.editCardContent("The Nesting Doll of Card Components",
 setTimeout(function() {titleCard.slideDown()}, 1000);
 
 // API
-titleCard.makeRight("80px",undefined,undefined,false)
+titleCard.makeRight("80px",undefined,false)
+const links = document.createElement('div')
 const docLink = document.createElement('a')
 docLink.href = "documentation.html"
+docLink.style.color = "blue"
+docLink.onmouseover = function(){docLink.style.color = "lightblue"};
+docLink.onmouseout = function(){docLink.style.color = "blue"};
 docLink.style.textDecoration = "none"
 docLink.innerText = "(API)"
+const exLink = document.createElement('a')
+exLink.href = "examples.html"
+exLink.style.color = "blue"
+exLink.onmouseover = function(){exLink.style.color = "lightblue"};
+exLink.onmouseout = function(){exLink.style.color = "blue"};
+exLink.style.textDecoration = "none"
+exLink.innerText = "(e.g.)"
+links.appendChild(docLink)
+links.appendChild(document.createElement('br'))
+links.appendChild(exLink)
 titleCard.right.editCardStyle("right",  "3px")
 titleCard.right.editCardStyle("background-color",  "transparent")
 titleCard.right.editCardStyle("border",  "none")
-titleCard.right.editCardContent(docLink,
-    "font-family: 'Open Sans', sans-serif; bottom: 1px; margin-top: 70px; font-weight: 600;")
+titleCard.right.editCardContent(links,
+    "font-family: 'Open Sans', sans-serif; bottom: 1px; margin-top: 46px; font-weight: 600;")
 setTimeout(function() {titleCard.slideRight()}, 1500);
 
 // My Name
-titleCard.makeUp(undefined, "20px", undefined, false)
+titleCard.makeUp(undefined, "20px", false)
 titleCard.up.editCardStyle("background-color",  "transparent")
 titleCard.up.editCardStyle("border",  "none")
 const authored = document.createElement('span')
-authored.innerHTML = "By: <a href='https://github.com/jj-kanu' style='text-decoration:none' target='blank'>JJ Kanu</a>";
+const authoredLink = document.createElement('a')
+authoredLink.href = 'https://github.com/jj-kanu'
+authoredLink.style.color = "blue"
+authoredLink.onmouseover = function(){authoredLink.style.color = "lightblue"};
+authoredLink.onmouseout = function(){authoredLink.style.color = "blue"};
+authoredLink.textDecoration = "none"
+authoredLink.target = "blank"
+authoredLink.innerText = "JJ Kanu"
+authored.appendChild(document.createTextNode("By: "))
+authored.appendChild(authoredLink)
+
 titleCard.up.editCardContent(authored, 
     "text-align: right; font-family: 'Open Sans', sans-serif; font-size: 20px; font-weight: 700; margin-top: 10px; margin-right: 21px")
 document.querySelector('#titleCard').addEventListener("mouseover", () => {
@@ -68,7 +92,7 @@ myName.style.marginLeft = "25%";
 myName.innerText = "JJ Kanu"
 textContent.appendChild((myName))
 
-const businessCard = new MultiCard("400px", "200px", null, textContent);
+const businessCard = new MultiCard("400px", "200px", textContent);
 document.querySelector('#businessCard').appendChild(businessCard.card)
 
 businessCard.card.querySelector('.cardContent').style.backgroundImage = "url('https://cdnb.artstation.com/p/assets/images/images/023/818/911/large/alex-stem-geometric-wallpaper.jpg?1580426586')"
@@ -199,7 +223,7 @@ const snContainer = document.createElement('img')
 snContainer.src = "https://www.vangoghgallery.com/img/starry_night_full.jpg"
 snContainer.style.width = "100%"
 snContainer.style.height = "100%"
-const snCard = new MultiCard("320px","254px",null,snContainer)
+const snCard = new MultiCard("320px","254px",snContainer)
 document.querySelector('#starryNight').appendChild(snCard.card)
 
 snCard.makeUp(undefined, "30px")
@@ -231,7 +255,7 @@ snCard.down.card.querySelector('.cardContent').appendChild(document.createTextNo
 
 
 // Quiz Card (hint on right, answer on bottom) ======================================================================
-const quizCard = new MultiCard("300px","200px","Some Trivia Questions", "What two cities in Japan were consecutive capitals?")
+const quizCard = new MultiCard("300px","200px", "What two cities in Japan were consecutive capitals?")
 document.querySelector('#quizCard').appendChild(quizCard.card)
 quizCard.card.style.backgroundColor = "#66ff66"
 const hint = document.createElement('button')
@@ -267,7 +291,7 @@ answer.addEventListener("click", function( event ) {
 }, false);
 
 // Crazy Card ======================================================================
-const startPoint = new MultiCard(undefined, undefined, null, undefined)
+const startPoint = new MultiCard(undefined, undefined, undefined, false)
 document.querySelector('#crazyCard').appendChild(startPoint.card)
 const crazyButton = document.createElement('button')
 crazyButton.appendChild(document.createTextNode("Click Me!"))
@@ -284,7 +308,7 @@ const labelSubCard = (direction,fontSize,paddingTop) => {
 }
 
 startPoint.card.style.backgroundColor = "#3399ff"
-startPoint.makeDown(undefined, undefined, undefined, false)
+startPoint.makeDown()
 startPoint.down.card.style.backgroundColor = "#66ccff"
 labelSubCard("down", "30px", "45px")
 

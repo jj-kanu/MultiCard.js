@@ -6,11 +6,12 @@
 
 // RIGHT NOW, MakeUp and MakeDown have (subheight, subwidth) and MakeLeft and MakeRight have (subWidth, subHeight)
 
-function MultiCard(width = "300px", height = "150px", title = "Title", content = "", level = 0, visible = true) {
+function MultiCard(width = "300px", height = "150px", content = "", visible = true, level = 0) {
 
     this.width = width;
     this.height = height;
     this.level = level;
+    this.visible = visible;
 
     // Sub-Cards
     this.left;
@@ -27,12 +28,12 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
                 border: 1px solid lightgray;
                 transition: all 1s ease 0s; display: inline-block;`
 
-        if (title != null){
-            const header = document.createElement('div')
-            header.style = `width: 100%; height: 25px; border-bottom: 1px solid lightgray; font-weight: bold;`
-            card.appendChild(header)
-            header.append(title)
-        }
+        // if (title != null){
+        //     const header = document.createElement('div')
+        //     header.style = `width: 100%; height: 25px; border-bottom: 1px solid lightgray; font-weight: bold;`
+        //     card.appendChild(header)
+        //     header.append(title)
+        // }
     
         //Card Content
         this.cardContent = document.createElement('div');
@@ -47,7 +48,6 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
         //Checks if subcard is in or out
         this.out = false;
         // Sets Subcard visibility. if visible is false, current subcard and its children will be invisible and fade in
-        this.visible = visible;
 
         this.card = document.createElement('SubCard')
         const card = this.card
@@ -64,12 +64,12 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
                     card.style.opacity = 0
                 }
 
-        if (title != null){
-            const header = document.createElement('div')
-            header.style = `width: 100%; height: 25px; border-bottom: 1px solid lightgray; font-weight: bold;`
-            card.appendChild(header)
-            header.append(title)
-        }
+        // if (title != null){
+        //     const header = document.createElement('div')
+        //     header.style = `width: 100%; height: 25px; border-bottom: 1px solid lightgray; font-weight: bold;`
+        //     card.appendChild(header)
+        //     header.append(title)
+        // }
     
         //Card Content
         this.cardContent = document.createElement('div');
@@ -86,20 +86,20 @@ function MultiCard(width = "300px", height = "150px", title = "Title", content =
 
 MultiCard.prototype = {
 
-    makeLeft: function (subWidth, subHeight, title = null, visible = true) {
-        makeCard(this, "left", subWidth, subHeight, title, visible, "0px", "0px", "-1px", "0px")
+    makeLeft: function (subWidth, subHeight, visible = true) {
+        makeCard(this, "left", subWidth, subHeight, visible, "0px", "0px", "-1px", "0px")
     },
 
-    makeRight: function (subWidth, subHeight, title = null, visible = true) {
-        makeCard(this, "right", subWidth, subHeight, title, visible, undefined, "0px", "-1px", "0px")
+    makeRight: function (subWidth, subHeight, visible = true) {
+        makeCard(this, "right", subWidth, subHeight, visible, undefined, "0px", "-1px", "0px")
     },
 
-    makeUp: function (subWidth, subHeight, title = null, visible = true) {
-        makeCard(this, "up", subWidth, subHeight, title, visible, "-1px", "0px", "0px", "0px")
+    makeUp: function (subWidth, subHeight, visible = true) {
+        makeCard(this, "up", subWidth, subHeight, visible, "-1px", "0px", "0px", "0px")
     },
 
-    makeDown: function (subWidth, subHeight, title = null, visible = true) {
-        makeCard(this, "down", subWidth, subHeight, title, visible, "-1px", "0px", undefined, "0px")
+    makeDown: function (subWidth, subHeight, visible = true) {
+        makeCard(this, "down", subWidth, subHeight, visible, "-1px", "0px", undefined, "0px")
     },
 
     slideLeft: function () {
@@ -133,6 +133,15 @@ MultiCard.prototype = {
         }
     },
 
+    //Can Add More Future Card Templates
+    cardTemplate: function(templateStyle) {
+        if (!append || !this.card.style[styleProperty]) this.card.style[styleProperty] = edit
+        else{
+            let curStyle = String(this.card.style[styleProperty]) + ", " + edit
+            this.card.style[styleProperty] = curStyle
+        }
+    },
+
     // Idk if I can concat to style so if i do this its a full replace
     // // Customize Card Style Full
     // editCardStyleFull: function(edit, append=false) {
@@ -144,7 +153,6 @@ MultiCard.prototype = {
     // },
 
     // Delete. Cannot Delete Intersection Cards (ie more than one subcard). Child takes position of parent
-    // Can delete all subcards ooorrrrr have child take property of parent
     deleteCard: function(deleteChildren) {
         // Removes Cards from DOM, references still exists at top level
         if (deleteChildren == true){
@@ -206,7 +214,7 @@ MultiCard.prototype = {
     }
 }
 
-const makeCard = (thisCard, passDirection, subWidth, subHeight, title, visible, left, right, top, bottom) => {
+const makeCard = (thisCard, passDirection, subWidth, subHeight, visible, left, right, top, bottom) => {
     let direction = passDirection; let opposite;
     switch(direction){
         case "left":
@@ -232,7 +240,7 @@ const makeCard = (thisCard, passDirection, subWidth, subHeight, title, visible, 
         let cardHeight = subHeight ? subHeight: thisCard.height
         //Check if parent card is visible
         let makeVisible
-        if ((thisCard.level < 0 && !thisCard.visible) || visible == false){
+        if ((!thisCard.visible) || visible == false){
             makeVisible = false
         } // If subcard width or height greater than current card, make invisible
         if ((+thisCard.height.slice(0,-2) < +cardHeight.slice(0,-2) )||(+thisCard.width.slice(0,-2) < +cardWidth.slice(0,-2) )){
@@ -241,7 +249,7 @@ const makeCard = (thisCard, passDirection, subWidth, subHeight, title, visible, 
 
         if (thisCard.level==0){
             const appendDirection = document.createElement(`${direction}`)
-            thisCard[direction] = new MultiCard(cardWidth, cardHeight, title, undefined, thisCard.level-1, makeVisible);
+            thisCard[direction] = new MultiCard(cardWidth, cardHeight, undefined, makeVisible, thisCard.level-1);
             thisCard[direction].card.className = `${direction}`;
             thisCard[direction].card.style.zIndex = thisCard[direction].level;
             if (left) thisCard[direction].card.style.left = left;
@@ -253,7 +261,7 @@ const makeCard = (thisCard, passDirection, subWidth, subHeight, title, visible, 
             thisCard.card.appendChild(appendDirection)
             thisCard[direction][opposite] = thisCard;
         } else {
-            thisCard[direction] = new MultiCard(cardWidth, cardHeight, title, undefined, thisCard.level-1, makeVisible);
+            thisCard[direction] = new MultiCard(cardWidth, cardHeight, undefined, makeVisible, thisCard.level-1);
             thisCard[direction].card.className = thisCard.card.className+`-${direction}`;
             thisCard[direction].card.style.zIndex = thisCard[direction].level;
             thisCard[direction].card.style.top = thisCard.card.style.top;
@@ -268,6 +276,7 @@ const makeCard = (thisCard, passDirection, subWidth, subHeight, title, visible, 
 
 // Helper Functions
 const slide = (thisCard, passDirection) =>{
+    if (!thisCard[passDirection]) return (console.log("This subcard does not exist"))
     const mainOrSub = thisCard.level == 0? thisCard.card: thisCard.card.parentElement
     let direction = passDirection; let opposite; let horizontal = true;
     let directionProperty;
