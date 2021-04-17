@@ -373,6 +373,7 @@ crazyButton.addEventListener("click", function( event ) {
     setTimeout(function() {event.target.disabled = false;}, 12000);
 }, false);
 
+
 //TESTING
 // Testing delete all children, pointer stil exists
 // startPoint.deleteCard(true)
