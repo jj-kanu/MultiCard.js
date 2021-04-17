@@ -116,7 +116,7 @@
                     </p>
                     <p>
                         Setting <i>deleteChildren</i> to false will make the immediate subcard child take on the position
-                        of the parent child. Here, we see the card's right subcard has become <strong>.right.right</strong>
+                        of the deleted parent card. Here, we see the card's right subcard has become <strong>.right.right</strong>
                         after deleting <right>.right</right>
                     </p>
                 </div>  
@@ -131,7 +131,7 @@
                 <div class="paraText">
                     <p>
                         Using our nested card example once more, if we do not set <i>deleteChildren</i>, it will automatically
-                        pass in as true and delete all subcards of the card called. This can be used to delete the main MultiCard 
+                        pass in as true and delete the card called and all of its subcards. This can be used to delete the main MultiCard 
                         or all children of a subcard.
                     </p>
                 </div>  
@@ -142,6 +142,8 @@
                     startPoint.slideRight() <br>
                     startPoint.right.slideRight() //Will cause error as subcard no longer exists
                 </div>
+
+                <br><br>
 
         </div>
     </div>
