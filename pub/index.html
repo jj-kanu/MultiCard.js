@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>MultiCard.js</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <!-- Didn't end up using jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script defer type="text/javascript" src='js/MultiCard.js'></script>
+    <script defer type="text/javascript" src='js/index.js'></script>
+
+ </head>
+ <body>
+    <div id="bodyContainer">
+
+      <div id="titleCard"></div>
+
+      <div class="paraText">
+        <p>
+          MultiCards are card components that use subcards to display extra information, add user interactivity, 
+          and create unique card layouts.
+        </p>
+        <p>
+          The concept for MultiCard originally stemmed from the idea of making a digital business card. 
+          The vision for this original concept can be exemplified in the MultiCard below. <br>
+        </p> 
+        <p>Click on subheaders of the card to see what MultiCards can do.</p>
+      </div>
+
+      <div id="businessCard"></div>
+
+      <!-- Van Gogh -->
+      <div class="paraText">
+        <p>
+          Realzing there are more than just one use case, this idea was extrapolated to apply this functionality in different contexts.
+        </p>
+        <p>
+          Of course, sliding subcards can occur for different types of events aside from clicks. Here's an example of a possible
+          onHover card that can be used for minimalist image galleries.
+        </p>
+      </div>
+      <div id="starryNight"></div>
+
+      <!-- Quiz -->
+      <div class="paraText">
+        <p>
+          You can even create subcards that are larger than the dimensions of their parents. This will automatically make the subcard fade in and out
+          when sliding.<br>
+          <br> Here's MultiCard's functionality applied to an example Trivia Card. <br>(See if you can get the answer without revealing it).
+        </p>
+      </div>
+      <div id="quizCard"></div>
+      
+      <!-- Crazy Card -->
+      <div class="paraText">
+        <p>
+          Now, you might be thinking, 'I get it, it's just a card component with drawers'. However, these examples
+          only scratch the surface in terms of the creative layouts you can use these components in.
+        </p>
+        <p>
+          MultiCards use a linked structure where each MultiCard points to a subcard in each of its four directions: up, down, left, and right. 
+          But, each subcard is also a MultiCard! This means each subcard is capable of creating their own subcards. 
+          <br> <br>Scroll to the bottom of page and click on the example below to see this visualized.
+        </p>
+      </div>
+      <div id="crazyCard"></div>
+
+      <!-- Footer -->
+      <div id="footer">
+        <p>
+          Check out some <a href="examples.html">Examples</a> on how to make MultiCards or read up on the <a href="documentation.html">Documentation</a>.
+        </p>
+      </div>
+
+    </div>
+ </body>
+
+</html>

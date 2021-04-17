@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>MultiCard</title>
+    <title>Examples | MultiCard.js</title>
     <link rel="stylesheet" type="text/css" href="css/examples.css">
     <!-- Didn't end up using jquery -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
@@ -13,65 +13,139 @@
 
  </head>
  <body>
-    <div id="bodyContainer">
-      <div id="title">
-        <h1>MultiCard</h1>
-        <h3>The Matryoshka Doll of Card Components</h3>
-      </div>
+     <div id="pageContainer">
+        <div id="navBar">
+            <div id="navBarBody">
+                <div id="logo"><a href="index.html">MultiCard.js</a></div>
+                <a class="links" href="examples.html">
+                    Examples
+                </a>
+                <a class="links" href="documentation.html">
+                    API
+                </a>
+            </div>
+        </div>
+        <div id="bodyContainer">
 
-      <div class="paraText">
-        <p>
-          MultiCards are card components that use subcards to add extra information, user interactivity, and more.
-        </p>
-        <p>
-          The idea for MultiCard originally stemmed from the idea of making a digital business card. 
-          This use of MultiCard demonstrates an example of its original purpose. <br>
-        </p> 
-        <p>Click on sections of the card to view its functionality.</p>
-      </div>
+            <div id="title">Examples</div>
 
-      <div id="businessCard"></div>
+            <div class="paraText">
+                <p>
+                    Here's some examples of how MultiCards can be made.
+                </p>
+            </div>
 
-      <!-- Van Gogh -->
-      <div class="paraText">
-        <p>
-          Of course, sliding subcards can occur for different types of events aside from clicks. Here's an example of a possible
-          onHover card that can be used for minimalist image galleries.
-        </p>
-      </div>
-      <div id="starryNight"></div>
+            <!-- Title Card ======================================================================= -->
+            <div class="headers">Title Card</div>
+                <hr>
+                <div class="paraText">
+                    <p>
+                        *Border style edits are commented out to display dimensions of cards.
+                    </p>
+                </div>
 
-      <!-- Quiz -->
-      <div class="paraText">
-        <p>
-          Different types of templates are planned for Multicards. As of right now, cards can have header titles if wanted. <br>
-           Here is an example of a MultiCard with header used to make trivia cards that display hints and answers. 
-          <br> (See if you can get the answer without revealing it)
-        </p>
-      </div>
-      <div id="quizCard"></div>
-      
-      <!-- Crazy Card -->
-      <div class="paraText">
-        <p>
-          Now, you might be thinking, 'I get it, it's just a card component with drawers'. However, these examples
-          only scratch the surface in terms of the creative layouts you can use these components in.
-        </p>
-        <p>
-          MultiCards use a linked structure where each MultiCard points to a subcard in each of its four directions: up, down, left, and right. 
-          But, each subcard is also a MultiCard! That means they can have their own subcards. 
-          <br> <br>Scroll to the bottom of page and try the example below to see this visualized.
-        </p>
-      </div>
-      <div id="crazyCard"></div>
+                <div id="titleCard"></div>
+                <div class="functionNames">JAVASCRIPT <span id="titleExpand">Expand</span></div>
+                <div id="titleBlock"></div>
+                <div class="functionNames">HTML</div>
+                <div class="codeBlockHTML">
+                    &lt;div id="titleCard"&gt;&lt;/div&gt;
+                </div>
+                <div class="functionNames">CSS</div>
+                <div class="codeBlockCSS">
+                    #titleCard {<br>
+                        width: fit-content;<br>
+                        margin-left: auto;<br>
+                        margin-right: auto;<br>
+                        margin-top: 54px;<br>
+                        margin-bottom: 95px;<br>
+                    }<br>
+                </div>
+            
+            <!-- Art Piece Card ======================================================================= -->
+            <div class="headers">Hover Image</div>
+                <hr>
+                <div class="paraText">
+                    <p>
+                        Quick way to make an image MultiCard that slides on hover. The <i>visible</i> property of the 
+                        bottom subcard has been set to false to show fade in.
+                    </p>
+                </div> 
+                <div id="hoverCard"></div> 
+                <div class="functionNames">JAVASCRIPT <span id="hoverExpand">Expand</span></div>
+                <div id="hoverBlock"></div>
+                <div class="functionNames">HTML</div>
+                <div class="codeBlockHTML">
+                    &lt;div id="starryNight"&gt;&lt;/div&gt;
+                </div>
+                <div class="functionNames">CSS</div>
+                <div class="codeBlockCSS">
+                    #starryNight {<br>
+                        width: fit-content;<br>
+                        margin-left: auto;<br>
+                        margin-right: auto;<br>
+                        margin-top: 54px;<br>
+                        margin-bottom: 95px;<br>
+                    }<br>
+                </div>
 
-      <!-- Footer -->
-      <div id="footer">
-        <p>
-          That's all for now. Stay tuned to see future implementations of MultiCard!
-        </p>
-      </div>
+            <!-- Nested Card Example ======================================================================= -->
+            <div class="headers">Nested Card</div>
+                <hr>
+                <div class="paraText">
+                    <p>
+                        Here's an example multi-nested cards.
+                    </p>
+                </div>  
+                <div id="nestedCard"></div>
+                <div class="functionNames">JAVASCRIPT <span id="nestedExpand">Expand</span></div>
+                <div id="nestedBlock"></div>
+                <div class="functionNames">HTML</div>
+                <div class="codeBlockHTML">
+                    &lt;div id="nestedBlock"&gt;&lt;/div&gt;
+                </div>
 
+            <!-- Delete Card ======================================================================= -->
+            <div class="headers">Delete Card Example</div>
+                <hr>
+                <div class="paraText">
+                    <p>
+                        Using our nested card example from earlier, we can see how deleting cards can work.
+                        By changing the parameter of <i>.deleteCard(deleteChildren)</i>, we can see how our
+                        nested card changes.
+                    </p>
+                    <p>
+                        Setting <i>deleteChildren</i> to false will make the immediate subcard child take on the position
+                        of the deleted parent card. Here, we see the card's right subcard has become <strong>.right.right</strong>
+                        after deleting <right>.right</right>
+                    </p>
+                </div>  
+                <div id="deleteCard"></div>
+                <div class="functionNames">JAVASCRIPT</div>
+                <div class="codeBlock">
+                    startPoint.right.deleteCard(false) <br>
+                    startPoint.slideRight()<br>
+                    startPoint.right.slideRight()<br>
+                    startPoint.right.slideDown()<br>
+                </div>
+                <div class="paraText">
+                    <p>
+                        Using our nested card example once more, if we do not set <i>deleteChildren</i>, it will automatically
+                        pass in as true and delete the card called and all of its subcards. This can be used to delete the main MultiCard 
+                        or all children of a subcard.
+                    </p>
+                </div>  
+                <div id="deleteCardChildren"></div>
+                <div class="functionNames">JAVASCRIPT</div>
+                <div class="codeBlock">
+                    startPoint.right.right.deleteCard() <br>
+                    startPoint.slideRight() <br>
+                    startPoint.right.slideRight() //Will cause error as subcard no longer exists
+                </div>
+
+                <br><br>
+
+        </div>
     </div>
  </body>
 

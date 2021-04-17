@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>API V1 | MultiCard.js</title>
+    <link rel="stylesheet" type="text/css" href="css/documentation.css">
+    <!-- Didn't end up using jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script defer type="text/javascript" src='your-path-to/MultiCard.js'></script>
+
+ </head>
+ <body>
+     <div id="pageContainer">
+        <div id="navBar">
+            <div id="navBarBody">
+                <div id="logo"><a href="index.html">MultiCard.js</a></div>
+                <a class="links" href="examples.html">
+                    Examples
+                </a>
+                <a class="links" href="documentation.html">
+                    API
+                </a>
+            </div>
+        </div>
+        <div id="bodyContainer">
+
+            <div id="title">API <span>V1</span></div>
+
+            <div class="headers">Getting Started</div>
+            <hr>
+
+            <div class="paraText">
+                <p>
+                    To use MultiCard.js, load the library with script tags like: <br></p> 
+            </div>
+
+            <div class="codeBlock">
+                &lt;script defer type="text/javascript" src='{your-path-to}/MultiCard.js'&gt;&lt;/script&gt;<br>
+                &lt;script defer type="text/javascript" src='{your-path-to}/{your-js-filename}.js'&gt;&lt;/script&gt;
+            </div>
+
+            <div class="paraText">
+                <p> Now you can construct a MultiCard object in {your-js-filename}.js.</p>
+            </div>
+
+            <br>
+
+            <div class="headers">Constructors</div>
+            <hr>
+
+            <div class="subheaders">Main Card Constructor</div>
+            <div class="functionNames">MultiCard(width, height, content, visible, level)</div>
+                <div class="paraText">
+                    <p>
+                        Constructs and returns a bare MultiCard. <strong>MultiCard</strong> is the JS object, while <strong>MultiCard.card</strong> 
+                        refers to the element that appears in the DOM.
+                    </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>width:</strong> Pixel width dimension string. ("_px")</li>
+                        <li><strong>height:</strong> Pixel height dimension string. ("_px")</li>
+                        <li><strong>content:</strong> Content of card. Can be a simple string or a DOM element.</li>
+                        <li><strong>visible:</strong> Set to false to make all subcards fade in and out. Defaulted to true.</li>
+                        <li><strong>level:</strong> Used only by functional calls to track subcard hierarchy. Manually setting may cause errors.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    //Creates MultiCard <br>
+                    const Example = new MultiCard("500px","200px","Card Text") <br> <br>
+                    // Adds Example MultiCard to DOM in div called 'exampleDiv' <br>
+                    document.querySelector('#exampleDiv').appendChild(Example.card)
+                </div>
+
+            <div class="subheaders">Subcard Constructors</div>
+                <div class="functionNames">.make[Left/Right/Up/Down](width, height, visible)</div>
+                <div class="paraText">
+                    <p>
+                        Creates a subcard in the associated direction. If width or height are undefined, subcard
+                        will inherit missing dimension from parent card.
+                    </p>
+                    <p>
+                        Subcards can be referenced by their positioning in relation to the main card. For example, <strong>Card.down</strong> would refer
+                        to the subcard immediately below the MultiCard, <strong>Card</strong>, while <strong>Card.down.right</strong> would refer to the right subcard of 
+                        <strong>Card.down.</strong>
+                    </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>width:</strong> Pixel width dimension string. ("_px")</li>
+                        <li><strong>height:</strong> Pixel height dimension string. ("_px")</li>
+                        <li><strong>visible:</strong> Set to false to make all subcards fade in and out. Defaulted to true.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    //Creates a right subcard <br>
+                    Example.makeRight("200px", "150px")
+                    <br> <br>
+                    //Creates a left subcard that copies dimensions of parent card and fades in and out.<br>
+                    Example.makeLeft(undefined, undefined, false)<br><br>
+                    //Creates a down subcard for left subcard that fades in and out automatically since dimensions bigger than parent card. <br>
+                    Example.left.makeDown("500px", "300px")
+                </div>
+            <br>
+
+            <div class="headers">Base Methods</div>
+            <hr>
+            
+                <div class="paraText">
+                    <p>These are functions that every MultiCard can use.</p>
+                </div>
+
+                <div class="functionNames">.slideLeft(), .slideRight(), .slideUp(), .slideDown()</div>
+                <div class="paraText">
+                    <p>
+                        If a subcard exists in associated direction, slide subcard out. 
+                        Running the function again will slide the subcard back in.
+                    </p>
+                </div>
+                <div class="codeBlock">
+                    //Slides right subcard out<br>
+                    Example.slideRight()
+                </div>
+
+                <div class="functionNames">.editCardStyle(styleProperty, edit, append)</div>
+                <div class="paraText">
+                    <p>
+                        Edits a style property of a card.
+                    </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>styleProperty:</strong> CSS style property to change. Type String.</li>
+                        <li><strong>edit:</strong> Value for CSS property to be set. Type String.</li>
+                        <li><strong>content:</strong> Boolean value deciding whether edit is appended to property or rewriting. Defaulted to false.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    // Gets rid of Card border<br>
+                    Example.editCardStyle("border","none")<br><br>
+                    // Makes background transparent<br>
+                    Example.editCardStyle("background-color", "transparent")
+                </div>
+
+                <div class="functionNames">.editCardContent(content, contentStyle)</div>
+                <div class="paraText">
+                    <p>
+                        Edits the card content of the card selected. 
+                    </p>
+                    <p>
+                        * <i>contentStyle</i> decides the styling of the content <strong>in</strong> the card; separate from card styling.
+                    </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>content:</strong> Content of card. Can be a simple string or a DOM element.</li>
+                        <li><strong>contentStyle:</strong> String of CSS styling properties.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    //Adds string and styling to content of right subcard<br>
+                    Example.right.editCardContent("Example card content", <br>
+                    "font-family: 'Open Sans', sans-serif; bottom: 1px; margin-top: 46px; font-weight: 600;")
+                </div>
+
+                <div class="functionNames">.deleteCard(deleteChildren)</div>
+                <div class="paraText">
+                    <p>
+                        Deletes the card called. 
+                    </p>
+                    <p>
+                        * Only cards with single subcard can have children inherit position.
+                        Cannot delete 'intersection' cards (cards with more than one subcard, e.g. a .down and .right) without deleting all children. 
+                    </p>
+                    <strong>Parameters:</strong>
+                    <ul>
+                        <li><strong>deleteChildren:</strong> Boolean that sets if deleted card will delete all children. Default is true.</li>
+                    </ul>
+                </div>
+                <div class="codeBlock">
+                    //Deletes left subcard, but not children so child subcard takes Example.left's place<br>
+                    Example.left.deleteCard(false) <br><br>
+                    //Deletes the MultiCard<br>
+                    Example.deleteCard()
+                </div>
+                <br><br>
+
+        </div>
+    </div>
+ </body>
+
+</html>
