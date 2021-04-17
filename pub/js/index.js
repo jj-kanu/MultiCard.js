@@ -164,10 +164,10 @@ businessCard.up.card.style.backgroundColor = "#181818"
 businessCard.up.card.querySelector('.cardContent').appendChild(document.createElement('a'))
 businessCard.up.card.querySelector('.cardContent').style.textAlign = "center"
 businessCard.up.card.querySelector('.cardContent').style.paddingTop = "4px"
-businessCard.up.card.querySelector('a').href = "https://github.com/jj-kanu"
+businessCard.up.card.querySelector('a').href = "index.html"
 businessCard.up.card.querySelector('a').style.color = "white"
 businessCard.up.card.querySelector('a').target = "blank"
-businessCard.up.card.querySelector('a').appendChild(document.createTextNode("GitHub Profile"))  
+businessCard.up.card.querySelector('a').appendChild(document.createTextNode("A Website Link"))  
 
 // About Me Card
 businessCard.down.card.style.backgroundColor = "#181818"
@@ -283,8 +283,17 @@ quizCard.down.card.querySelector('.cardContent').appendChild(document.createText
 quizCard.down.card.querySelector('.cardContent').style.paddingTop = "15px"
 quizCard.down.card.querySelector('.cardContent').style.paddingLeft = "30%"
 
+const hintImage = document.createElement('img')
+hintImage.src = "https://i.pinimg.com/originals/dc/53/76/dc5376f33c2472dc2bc5b38579025d11.gif"
+hintImage.style.width="100%"
+hintImage.style.height="100%"
+quizCard.makeLeft("400px","300px")
+quizCard.left.editCardStyle("top", "-50px")
+quizCard.left.editCardContent(hintImage)
+
 hint.addEventListener("click", function( event ) {
     quizCard.slideRight()
+    quizCard.slideLeft()
 }, false);
 answer.addEventListener("click", function( event ) {
     quizCard.slideDown()

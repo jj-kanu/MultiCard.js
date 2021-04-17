@@ -1,11 +1,5 @@
 "use strict";
 
-// For subcards bigger than maincard, transition visibility on slide out (initial check for size: if bigger, set invisible)
-// If logo needed, use russian nesting doll on a card
-// Could change function parameters to json, just found this out on 04-14 lol
-
-// RIGHT NOW, MakeUp and MakeDown have (subheight, subwidth) and MakeLeft and MakeRight have (subWidth, subHeight)
-
 (function(global, document) { 
 
     function MultiCard(width = "300px", height = "150px", content = "", visible = true, level = 0) {
@@ -29,13 +23,6 @@
                     background-color: white; 
                     border: 1px solid lightgray;
                     transition: all 1s ease 0s; display: inline-block;`
-
-            // if (title != null){
-            //     const header = document.createElement('div')
-            //     header.style = `width: 100%; height: 25px; border-bottom: 1px solid lightgray; font-weight: bold;`
-            //     card.appendChild(header)
-            //     header.append(title)
-            // }
         
             //Card Content
             this.cardContent = document.createElement('div');
@@ -65,13 +52,6 @@
                         card.style.visibility = "hidden"
                         card.style.opacity = 0
                     }
-
-            // if (title != null){
-            //     const header = document.createElement('div')
-            //     header.style = `width: 100%; height: 25px; border-bottom: 1px solid lightgray; font-weight: bold;`
-            //     card.appendChild(header)
-            //     header.append(title)
-            // }
         
             //Card Content
             this.cardContent = document.createElement('div');
@@ -134,25 +114,6 @@
                 this.card.style[styleProperty] = curStyle
             }
         },
-
-        //Can Add More Future Card Templates
-        cardTemplate: function(templateStyle) {
-            if (!append || !this.card.style[styleProperty]) this.card.style[styleProperty] = edit
-            else{
-                let curStyle = String(this.card.style[styleProperty]) + ", " + edit
-                this.card.style[styleProperty] = curStyle
-            }
-        },
-
-        // Idk if I can concat to style so if i do this its a full replace
-        // // Customize Card Style Full
-        // editCardStyleFull: function(edit, append=false) {
-        //     if (!append) this.card.style[styleProperty] = edit
-        //     else{
-        //         let curStyle = String(this.card.style[styleProperty]) + ", " + edit
-        //         this.card.style[styleProperty] = curStyle
-        //     }
-        // },
 
         // Delete. Cannot Delete Intersection Cards (ie more than one subcard). Child takes position of parent
         deleteCard: function(deleteChildren = true) {
